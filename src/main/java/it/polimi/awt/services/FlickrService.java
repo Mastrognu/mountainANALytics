@@ -9,7 +9,7 @@ import com.flickr4java.flickr.photos.PhotoList;
 import com.flickr4java.flickr.photos.SearchParameters;
 import com.flickr4java.flickr.test.TestInterface;
 
-public class FlikrService {
+public class FlickrService {
 
 	String apiKey = "8ba1865ec3cc2789404826aaf1ec82c3";
 	String sharedSecret = "9794f74bdc128d35";
