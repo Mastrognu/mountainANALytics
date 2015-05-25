@@ -1,6 +1,6 @@
 package it.polimi.awt.services;
 
-public interface FlikrInterface {
+public interface FlickrInterface {
 	
 	
 
