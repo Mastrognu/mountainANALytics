@@ -7,6 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
+<form action="commonFriends" method="post" class="form1">
+				<input type="text" value="ciao" class="" /> <input
+					type="reset" value="Clear All" class="button" /> <br>
+				<br>
 
+			</form>
+			
 </body>
 </html>
