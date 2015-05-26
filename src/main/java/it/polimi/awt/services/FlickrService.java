@@ -11,7 +11,7 @@ import com.flickr4java.flickr.photos.PhotoList;
 import com.flickr4java.flickr.photos.SearchParameters;
 import com.flickr4java.flickr.test.TestInterface;
 
-public class FlickrService {
+public class FlickrService implements FlickrInterface {
 
 	private static final String API_KEY = "8ba1865ec3cc2789404826aaf1ec82c3";
 	private static final String SHARED_SECRET = "9794f74bdc128d35";
