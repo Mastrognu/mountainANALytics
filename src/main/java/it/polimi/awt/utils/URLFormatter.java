@@ -2,15 +2,15 @@ package it.polimi.awt.utils;
 
 public class URLFormatter {
 
-	private static final String BASE_URL = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=fb38cbad82a1353f5b454f7d64b6973b";
-	private static final String APPENDIX = "&format=rest";
+	private static final String FLICKR_BASE_URL = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=fb38cbad82a1353f5b454f7d64b6973b";
+	private static final String FLICKR_APPENDIX = "&format=rest";
 
-	public static String getTagsQueryURL(String text) {
-		return BASE_URL + "&tags" + text.replace(" ", "+") + APPENDIX;
+	public static String getFlickrTagsQueryURL(String text) {
+		return FLICKR_BASE_URL + "&tags=" + text.replace(" ", "+") + FLICKR_APPENDIX;
 	}
 
-	public static String getCoordinatesQueryURL(int latD, int latM, int latS, int lonD, int lonM, int lonS) {
-		return BASE_URL + "&lat" + convertCoordsToDecimal(latD, latM, latS) + "&lon" + convertCoordsToDecimal(lonD, lonM, lonS) + APPENDIX;
+	public static String getFlickrCoordinatesQueryURL(int latD, int latM, int latS, int lonD, int lonM, int lonS) {
+		return FLICKR_BASE_URL + "&lat=" + convertCoordsToDecimal(latD, latM, latS) + "&lon=" + convertCoordsToDecimal(lonD, lonM, lonS) + FLICKR_APPENDIX;
 	}
 
 	private static double convertCoordsToDecimal(int d, int m, int s) {

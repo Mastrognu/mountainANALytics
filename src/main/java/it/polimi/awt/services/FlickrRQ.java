@@ -17,88 +17,54 @@ public class FlickrRQ implements SocialNetworkInterface {
 	private static final String SHARED_SECRET = "9794f74bdc128d35";
 	private static final String FLICKR_TEST_URL = "https://api.flickr.com/services/rest/?method=flickr.test.echo&name=value";
 	
-	public void sendPingRequest() throws IOException {
-		URL obj = new URL(FLICKR_TEST_URL);
-		HttpURLConnection httpConnection = (HttpURLConnection) obj.openConnection();
-
-		httpConnection.setRequestMethod("GET");
- 
-		int responseCode = httpConnection.getResponseCode();
-		System.out.println("\nSending 'GET' request to URL : " + FLICKR_TEST_URL);
-		System.out.println("Response Code : " + responseCode);
- 
-		BufferedReader in = new BufferedReader(new InputStreamReader(httpConnection.getInputStream()));
-		String inputLine;
-		StringBuffer response = new StringBuffer();
- 
-		while ((inputLine = in.readLine()) != null) {
-			response.append(inputLine);
-		}
-		in.close();
- 
-		//print result
-		System.out.println(response.toString());
+	public String sendPingRequest() throws IOException {
+		return getConnection(FLICKR_TEST_URL);
 	}
 
 	@Override
-	public void sendTagsRequest(String tags) throws IOException {
-		String url = URLFormatter.getTagsQueryURL(tags);
-		URL obj = new URL(url);
-		HttpURLConnection httpConnection = (HttpURLConnection) obj.openConnection();
+	public String sendTagsRequest(String tags) throws IOException {
+		return getConnection(URLFormatter.getFlickrTagsQueryURL(tags));
+	}
 
-		httpConnection.setRequestMethod("GET");
+	@Override
+	public String sendCoordinatesRequest(int latD, int latM, int latS, int lonD, int lonM, int lonS) throws IOException {
+		return getConnection(URLFormatter.getFlickrCoordinatesQueryURL(latD, latM, latS, lonD, lonM, lonS));
+	}
+
+	@Override
+	public String sendTextRequest(String text) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String sendCoordinatesRequest(float latitude, float longitude) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private String getConnection(String url) throws IOException {
+		URL obj = new URL(url);
+		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
  
-		int responseCode = httpConnection.getResponseCode();
+		// optional default is GET
+		con.setRequestMethod("GET");
+ 
+		int responseCode = con.getResponseCode();
 		System.out.println("\nSending 'GET' request to URL : " + url);
 		System.out.println("Response Code : " + responseCode);
  
-		BufferedReader in = new BufferedReader(new InputStreamReader(httpConnection.getInputStream()));
-		String inputLine;
-		StringBuffer response = new StringBuffer();
+		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		StringBuilder response = new StringBuilder();
  
-		while ((inputLine = in.readLine()) != null) {
-			response.append(inputLine);
+		while (in.readLine() != null) {
+			response.append(in.readLine());
+			System.out.print(response);
 		}
 		in.close();
- 
+		System.out.print(response.toString());
+
 		//print result
-		System.out.println(response.toString());
-	}
-
-	@Override
-	public void sendCoordinatesRequest(int latD, int latM, int latS, int lonD, int lonM, int lonS) throws IOException {
-		String url = URLFormatter.getCoordinatesQueryURL(latD, latM, latS, lonD, lonM, lonS);
-		URL obj = new URL(url);
-		HttpURLConnection httpConnection = (HttpURLConnection) obj.openConnection();
-
-		httpConnection.setRequestMethod("GET");
- 
-		int responseCode = httpConnection.getResponseCode();
-		System.out.println("\nSending 'GET' request to URL : " + url);
-		System.out.println("Response Code : " + responseCode);
- 
-		BufferedReader in = new BufferedReader(new InputStreamReader(httpConnection.getInputStream()));
-		String inputLine;
-		StringBuffer response = new StringBuffer();
- 
-		while ((inputLine = in.readLine()) != null) {
-			response.append(inputLine);
-		}
-		in.close();
- 
-		//print result
-		System.out.println(response.toString());
-	}
-
-	@Override
-	public void sendTextRequest(String text) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void sendCoordinatesRequest(float latitude, float longitude) {
-		// TODO Auto-generated method stub
-		
+		return response.toString();
 	}
 }

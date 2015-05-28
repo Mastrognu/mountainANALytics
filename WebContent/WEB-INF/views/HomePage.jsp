@@ -13,7 +13,7 @@
 	<form action="${addQueryFromForm}" method="post">
 		Query: <input type="text" name="query" /><br /> 
 		Please select a social network <br /> 
-		Flikr: <input type="checkbox" name="flikrOk" />
+		Flickr: <input type="checkbox" name="flikrOk" />
 		Panoramio: <input type="checkbox" name="panoramioOk" />
 		<input type="submit" value="send" /> 
 	</form>
