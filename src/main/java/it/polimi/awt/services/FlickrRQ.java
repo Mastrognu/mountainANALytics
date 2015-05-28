@@ -5,10 +5,16 @@ import it.polimi.awt.utils.URLFormatter;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.springframework.stereotype.Service;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
 
 @Service
 public class FlickrRQ implements SocialNetworkInterface {
@@ -47,7 +53,6 @@ public class FlickrRQ implements SocialNetworkInterface {
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
  
-		// optional default is GET
 		con.setRequestMethod("GET");
  
 		int responseCode = con.getResponseCode();
@@ -57,14 +62,17 @@ public class FlickrRQ implements SocialNetworkInterface {
 		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 		StringBuilder response = new StringBuilder();
  
-		while (in.readLine() != null) {
-			response.append(in.readLine());
-			System.out.print(response);
-		}
-		in.close();
-		System.out.print(response.toString());
+		String tmp;
+		if ((tmp = in.readLine()) != null)
+			response.append(tmp);
 
-		//print result
 		return response.toString();
+	}
+
+	public static Document loadXMLFromString(String xml) throws Exception {
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		InputSource is = new InputSource(new StringReader(xml));
+		return builder.parse(is);
 	}
 }
