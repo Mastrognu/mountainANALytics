@@ -1,21 +1,20 @@
 package it.polimi.awt.services;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import javax.net.ssl.HttpsURLConnection;
-
 import org.springframework.stereotype.Service;
 
 @Service
-public class PanoramioRQ {
+public class PanoramioRQ implements SocialNetworkInterface {
 
-	public void sendGet() throws Exception {
-		 
+	@Override
+	public void sendTagsRequest(String tag) throws IOException {
 		String url = "http://www.panoramio.com/map/get_panoramas.php?set=public&from=0&to=20&minx=-180&miny=-90&maxx=180&maxy=90&size=medium&mapfilter=true";
- 
+		 
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
  
@@ -40,7 +39,25 @@ public class PanoramioRQ {
 		in.close();
  
 		//print result
-		System.out.println(response.toString());
- 
+		System.out.println(response.toString());		
+	}
+
+	@Override
+	public void sendCoordinatesRequest(float latitude, float longitude) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void sendTextRequest(String text) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void sendCoordinatesRequest(int latD, int latM, int latS, int lonD,
+			int lonM, int lonS) throws IOException {
+		// TODO Auto-generated method stub
+		
 	}	
 }
