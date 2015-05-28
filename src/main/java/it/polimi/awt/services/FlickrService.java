@@ -1,5 +1,9 @@
 package it.polimi.awt.services;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -35,4 +39,6 @@ public class FlickrService {
 //
 //	    PhotoList<Photo> list = flickr.getPhotosInterface().search(searchParameters, 0, 0);
 	}
+
+	
 }

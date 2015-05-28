@@ -1,5 +1,6 @@
 package it.polimi.awt.controllers;
 
+import it.polimi.awt.services.FlickrRQ;
 import it.polimi.awt.services.PanoramioRQ;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class HomoController {
 	@Autowired
 	PanoramioRQ pr;
+	@Autowired
+	FlickrRQ flick;
 	@RequestMapping(value = {"/HomePage", "/"}, method = RequestMethod.GET)
 	public String home(Model model) throws Exception {
 		pr.sendGet();
+		flick.sendRequest();
 		return "HomePage";
 	}
-
 }
