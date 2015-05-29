@@ -66,7 +66,13 @@ public class FlickrRQ implements SocialNetworkInterface {
 		if ((tmp = in.readLine()) != null)
 			response.append(tmp);
 
+		System.out.println(response.toString());
+
 		return response.toString();
+	}
+
+	public static String getApiKey() {
+		return API_KEY;
 	}
 
 	private static Document loadXMLFromString(String xml) throws Exception {
