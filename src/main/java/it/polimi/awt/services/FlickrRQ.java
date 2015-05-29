@@ -1,13 +1,16 @@
 package it.polimi.awt.services;
 
+import it.polimi.awt.utils.JSONparser;
 import it.polimi.awt.utils.URLFormatter;
 
+import java.util.List;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -15,6 +18,9 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
+
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonParser;
 
 @Service
 public class FlickrRQ implements SocialNetworkInterface {
@@ -67,6 +73,12 @@ public class FlickrRQ implements SocialNetworkInterface {
 			response.append(tmp);
 
 		System.out.println(response.toString());
+		
+//		JSONparser parser = new JSONparser();
+//		JsonFactory jsonF = new JsonFactory();
+//		@SuppressWarnings("deprecation")
+//		JsonParser jp = jsonF.createJsonParser(response.toString());
+//		List<String> entry = parser.read(jp);
 
 		return response.toString();
 	}
