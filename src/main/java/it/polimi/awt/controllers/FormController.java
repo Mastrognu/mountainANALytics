@@ -14,6 +14,7 @@ public class FormController {
 
 	@RequestMapping("/view")
 	public String addQueryFromForm(Request request) {
+		//Va fatto con l'injection, non come una semplice chiamata.
 		SocialNetworkInterface sni = new FlickrRQ();
 		try {
 			request.setResponse(sni.sendTagsRequest(request.getQuery()));
