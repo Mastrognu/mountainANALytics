@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class FormController {
-	
+
 	@RequestMapping("/view")
 	public String addQueryFromForm(Request request) {
 		SocialNetworkInterface sni = new FlickrRQ();
@@ -23,5 +23,4 @@ public class FormController {
 		}
 		return "jspdafare";
 	}
-
 }

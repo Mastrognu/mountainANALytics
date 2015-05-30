@@ -25,10 +25,10 @@ import com.fasterxml.jackson.core.JsonParser;
 @Service
 public class FlickrRQ implements SocialNetworkInterface {
 
-	private static final String API_KEY = "8ba1865ec3cc2789404826aaf1ec82c3";
+	public static final String API_KEY = "8ba1865ec3cc2789404826aaf1ec82c3";
 	private static final String SHARED_SECRET = "9794f74bdc128d35";
 	private static final String FLICKR_TEST_URL = "https://api.flickr.com/services/rest/?method=flickr.test.echo&name=value";
-	
+
 	public String sendPingRequest() throws IOException {
 		return getConnection(FLICKR_TEST_URL);
 	}
@@ -72,19 +72,17 @@ public class FlickrRQ implements SocialNetworkInterface {
 		if ((tmp = in.readLine()) != null)
 			response.append(tmp);
 
-		System.out.println(response.toString());
+//		System.out.println(response.toString());
 		
-//		JSONparser parser = new JSONparser();
-//		JsonFactory jsonF = new JsonFactory();
-//		@SuppressWarnings("deprecation")
-//		JsonParser jp = jsonF.createJsonParser(response.toString());
-//		List<String> entry = parser.read(jp);
+		JSONparser parser = new JSONparser();
+		JsonFactory jsonF = new JsonFactory();
+		@SuppressWarnings("deprecation")
+		JsonParser jp = jsonF.createJsonParser(response.toString());
+		List<String> entry = parser.read(jp);
+		
+		System.out.println(entry.size());
 
-		return response.toString();
-	}
-
-	public static String getApiKey() {
-		return API_KEY;
+		return entry.toString();
 	}
 
 	private static Document loadXMLFromString(String xml) throws Exception {

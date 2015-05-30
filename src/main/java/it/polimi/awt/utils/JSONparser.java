@@ -8,32 +8,35 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
 public class JSONparser {
-	public static List<String> read(JsonParser jp) throws IOException {
+
+	public List<String> read(JsonParser jp) throws IOException {
 		// Sanity check: verify that we got "Json Object":
 		if (jp.nextToken() != JsonToken.START_OBJECT) {
-			throw new IOException(
-					"Expected data to start with a new list of URL");
+			throw new IOException("Expected data to start with a new list of URL");
 		}
 		List<String> result = new ArrayList<String>();
 		int index = 0;
-		// Manca l'iterate on each object esterno
-		// Iterate over object fields:
 
-		while (jp.nextToken() != JsonToken.END_OBJECT) {
-			String fieldName = jp.getCurrentName();
-			jp.nextToken();
+		/*
+		 * Per motivi a me sconosciuti, i < 2N fa riempire la lista di N elementi, qualnque sia N.
+		 * Finchè non capisco come si faccia a sapere la lunghezza / dimensione del JsonParser, teniamolo così.
+		 */
+		for (int i = 0; i < 100; i++) {
 			String owner = "";
 			String id = "";
-			if (fieldName.equals("id")) {
-				id = (jp.getText());
-			} else if (fieldName.equals("owner")) {
-				owner = (jp.getText());
-			} else { // ignore, or signal error?
-				throw new IOException("Unrecognized field '" + fieldName + "'");
+			while (jp.nextToken() != JsonToken.END_OBJECT && jp.getCurrentName() != null) {
+				String fieldName = jp.getCurrentName();
+				jp.nextToken();
+				System.out.println(fieldName);
+				if (fieldName.equals("id"))
+					id = jp.getText();
+				else if (fieldName.equals("owner"))
+					owner = jp.getText();
 			}
-			
-			result.add(index, "https://www.flickr.com/" + id + "/" + owner);
-			index++;
+			if (owner != "" && id != "") {
+				result.add(index, "https://www.flickr.com/" + owner + "/" + id);
+				index++;
+			}
 		}
 		jp.close(); // important to close both parser and underlying File reader
 		return result;

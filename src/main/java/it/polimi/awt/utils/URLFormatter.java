@@ -8,11 +8,11 @@ public class URLFormatter {
 	private static final String FLICKR_APPENDIX = "&format=json&nojsoncallback=1";
 
 	public static String getFlickrTagsQueryURL(String text) {
-		return FLICKR_BASE_URL + FlickrRQ.getApiKey() + "&tags=" + text.replace(" ", "+") + FLICKR_APPENDIX;
+		return FLICKR_BASE_URL + FlickrRQ.API_KEY + "&tags=" + text.replace(" ", "+") + FLICKR_APPENDIX;
 	}
 
 	public static String getFlickrCoordinatesQueryURL(int latD, int latM, int latS, int lonD, int lonM, int lonS) {
-		return FLICKR_BASE_URL + FlickrRQ.getApiKey() + "&lat=" + convertCoordsToDecimal(latD, latM, latS) + "&lon=" + convertCoordsToDecimal(lonD, lonM, lonS) + FLICKR_APPENDIX;
+		return FLICKR_BASE_URL + FlickrRQ.API_KEY + "&lat=" + convertCoordsToDecimal(latD, latM, latS) + "&lon=" + convertCoordsToDecimal(lonD, lonM, lonS) + FLICKR_APPENDIX;
 	}
 
 	private static double convertCoordsToDecimal(int d, int m, int s) {
