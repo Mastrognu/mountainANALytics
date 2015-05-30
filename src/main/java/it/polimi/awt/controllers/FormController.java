@@ -1,21 +1,22 @@
 package it.polimi.awt.controllers;
 
 import it.polimi.awt.domain.Request;
-import it.polimi.awt.services.FlickrRQ;
 import it.polimi.awt.services.SocialNetworkInterface;
 
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class FormController {
+	@Autowired
+	SocialNetworkInterface sni;
 
 	@RequestMapping("/view")
 	public String addQueryFromForm(Request request) {
-		//Va fatto con l'injection, non come una semplice chiamata.
-		SocialNetworkInterface sni = new FlickrRQ();
+		//Va fatto con l'injection, non come una semplice chiamata
 		try {
 			request.setResponse(sni.sendTagsRequest(request.getQuery()));
 		} catch (IOException e) {
