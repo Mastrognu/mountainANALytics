@@ -26,18 +26,24 @@ public class JSONUtils {
 		 * Finchè non capisco come si faccia a sapere la lunghezza / dimensione del JsonParser, teniamolo così.
 		 */
 		for (int i = 0; i < MAX_NUMBER_OF_PHOTOS; i++) {
-			String owner = "";
+			String farm = "";
 			String id = "";
+			String server = "";
+			String secret = "";
 			while (jp.nextToken() != JsonToken.END_OBJECT && jp.getCurrentName() != null) {
 				String fieldName = jp.getCurrentName();
 				jp.nextToken();
 				if (fieldName.equals("id"))
 					id = jp.getText();
-				else if (fieldName.equals("owner"))
-					owner = jp.getText();
+				else if (fieldName.equals("secret"))
+					secret = jp.getText();
+				else if (fieldName.equals("farm"))
+					farm = jp.getText();
+				else if (fieldName.equals("server"))
+					server = jp.getText();
 			}
-			if (owner != "" && id != "") {
-				result.add(index, "https://www.flickr.com/" + owner + "/" + id);
+			if (farm != "" && id != "" && server !="" && secret !="") {
+				result.add(index, "https://farm"+farm+".staticflickr.com/"+server+"/"+id+"_"+secret+".jpg");
 				System.out.println(result.get(index));
 				index++;
 			}

@@ -65,7 +65,7 @@ public class FlickrRQ implements SocialNetworkInterface {
 		if ((tmp = in.readLine()) != null)
 			response.append(tmp);
 
-//		System.out.println(response.toString());
+		System.out.println(response.toString());
 		
 		JSONUtils parser = new JSONUtils();
 		JsonFactory jsonF = new JsonFactory();

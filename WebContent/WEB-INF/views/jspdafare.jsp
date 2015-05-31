@@ -11,12 +11,14 @@
 </head>
 <body>
 	Your query is: ${request.query}.
-	<br /> ${request.response}
 	<br />
-	<c:forEach items="${request.response}" var="url">
-		<img src=${request.response }  width="214" height="138" />
-	</c:forEach>
-
+	<br />
+	<c:out value="${request.response}" />
+	<br />
+	<br />
+		<c:forTokens items="${request.response}" delims="," var="url">
+    	<img src="<c:url value="${url}"/>" width="214" height="138"/>
+	</c:forTokens>
 </body>
 </html>
 
