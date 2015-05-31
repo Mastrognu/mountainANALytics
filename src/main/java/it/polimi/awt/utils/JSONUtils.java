@@ -43,7 +43,7 @@ public class JSONUtils {
 					server = jp.getText();
 			}
 			if (farm != "" && id != "" && server !="" && secret !="") {
-				result.add(index, "https://farm"+farm+".staticflickr.com/"+server+"/"+id+"_"+secret+".jpg");
+				result.add(index, "https://farm"+farm+".staticflickr.com/"+server+"/"+id+"_"+secret+"_n.jpg");
 				System.out.println(result.get(index));
 				index++;
 			}

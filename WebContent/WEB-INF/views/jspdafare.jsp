@@ -17,7 +17,7 @@
 	<br />
 	<br />
 		<c:forTokens items="${request.response}" delims="," var="url">
-    	<img src="<c:url value="${url}"/>" width="214" height="138"/>
+    	<img src="<c:url value="${url}"/>"/>
 	</c:forTokens>
 </body>
 </html>
