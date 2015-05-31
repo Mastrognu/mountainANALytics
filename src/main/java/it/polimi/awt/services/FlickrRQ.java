@@ -1,23 +1,16 @@
 package it.polimi.awt.services;
 
-import it.polimi.awt.utils.JSONparser;
-import it.polimi.awt.utils.URLFormatter;
+import it.polimi.awt.utils.JSONUtils;
+import it.polimi.awt.utils.URLUtils;
 
-import java.util.List;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
@@ -35,12 +28,12 @@ public class FlickrRQ implements SocialNetworkInterface {
 
 	@Override
 	public String sendTagsRequest(String tags) throws IOException {
-		return getConnection(URLFormatter.getFlickrTagsQueryURL(tags));
+		return getConnection(URLUtils.getFlickrTagsURL(tags));
 	}
 
 	@Override
 	public String sendCoordinatesRequest(int latD, int latM, int latS, int lonD, int lonM, int lonS) throws IOException {
-		return getConnection(URLFormatter.getFlickrCoordinatesQueryURL(latD, latM, latS, lonD, lonM, lonS));
+		return getConnection(URLUtils.getFlickrCoordinatesURL(latD, latM, latS, lonD, lonM, lonS));
 	}
 
 	@Override
@@ -74,21 +67,14 @@ public class FlickrRQ implements SocialNetworkInterface {
 
 //		System.out.println(response.toString());
 		
-		JSONparser parser = new JSONparser();
+		JSONUtils parser = new JSONUtils();
 		JsonFactory jsonF = new JsonFactory();
 		@SuppressWarnings("deprecation")
 		JsonParser jp = jsonF.createJsonParser(response.toString());
-		List<String> entry = parser.read(jp);
+		List<String> entry = parser.readFlickr(jp);
 		
 		System.out.println(entry.size());
 
 		return entry.toString();
-	}
-
-	private static Document loadXMLFromString(String xml) throws Exception {
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder builder = factory.newDocumentBuilder();
-		InputSource is = new InputSource(new StringReader(xml));
-		return builder.parse(is);
 	}
 }

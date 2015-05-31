@@ -7,13 +7,17 @@ import java.util.ArrayList;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
-public class JSONparser {
+public class JSONUtils {
 
-	public List<String> read(JsonParser jp) throws IOException {
-		// Sanity check: verify that we got "Json Object":
-		if (jp.nextToken() != JsonToken.START_OBJECT) {
-			throw new IOException("Expected data to start with a new list of URL");
-		}
+	private static final int MAX_NUMBER_OF_PHOTOS = 100;
+
+	/**
+	 * 
+	 * @param jp The JSON to parse
+	 * @return A list of all the URLs of the photos contained in the parser
+	 * @throws IOException In case there is a problem in the JSON read/write operations
+	 */
+	public List<String> readFlickr(JsonParser jp) throws IOException {
 		List<String> result = new ArrayList<String>();
 		int index = 0;
 
@@ -21,13 +25,12 @@ public class JSONparser {
 		 * Per motivi a me sconosciuti, i < 2N fa riempire la lista di N elementi, qualnque sia N.
 		 * Finchè non capisco come si faccia a sapere la lunghezza / dimensione del JsonParser, teniamolo così.
 		 */
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < MAX_NUMBER_OF_PHOTOS; i++) {
 			String owner = "";
 			String id = "";
 			while (jp.nextToken() != JsonToken.END_OBJECT && jp.getCurrentName() != null) {
 				String fieldName = jp.getCurrentName();
 				jp.nextToken();
-				System.out.println(fieldName);
 				if (fieldName.equals("id"))
 					id = jp.getText();
 				else if (fieldName.equals("owner"))
@@ -35,6 +38,7 @@ public class JSONparser {
 			}
 			if (owner != "" && id != "") {
 				result.add(index, "https://www.flickr.com/" + owner + "/" + id);
+				System.out.println(result.get(index));
 				index++;
 			}
 		}
