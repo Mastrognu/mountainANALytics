@@ -20,14 +20,10 @@
 			<version>${jackson.version}</version>
 		</dependency>
 		<dependency>
+<<<<<<< HEAD
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-dbcp2</artifactId>
 			<version>2.1</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
@@ -49,5 +45,12 @@
 			<artifactId>spring-tx</artifactId>
 			<version>4.1.6.RELEASE</version>
 		</dependency>
+=======
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+>>>>>>> e323fcc5b89842987c9b0016a3781485dd60d526
 	</dependencies>
 </project>
