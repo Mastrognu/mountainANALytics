@@ -1,4 +1,4 @@
-package it.polimi.awt.controllers;
+package it.polimi.awt.web;
 
 import it.polimi.awt.domain.Request;
 import it.polimi.awt.services.SocialNetworkInterface;
