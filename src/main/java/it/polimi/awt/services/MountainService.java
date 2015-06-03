@@ -1,6 +1,6 @@
-package it.polimi.awt.db.service;
+package it.polimi.awt.services;
 
-import it.polimi.awt.db.domain.Mountain;
+import it.polimi.awt.domain.Mountain;
 
 import java.util.List;
 

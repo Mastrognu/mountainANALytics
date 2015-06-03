@@ -1,4 +1,4 @@
-package it.polimi.awt.db.domain;
+package it.polimi.awt.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

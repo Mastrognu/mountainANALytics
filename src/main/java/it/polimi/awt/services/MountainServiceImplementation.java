@@ -1,7 +1,7 @@
-package it.polimi.awt.db.service;
+package it.polimi.awt.services;
 
-import it.polimi.awt.db.domain.Mountain;
-import it.polimi.awt.db.repository.MountainRepository;
+import it.polimi.awt.domain.Mountain;
+import it.polimi.awt.repository.MountainRepository;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-@Service
+//@Service
 @Transactional
 public class MountainServiceImplementation implements MountainService {
 
