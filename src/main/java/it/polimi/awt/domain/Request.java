@@ -1,9 +1,11 @@
 package it.polimi.awt.domain;
 
+import java.util.List;
+
 public class Request {
 
 	private String query;
-	private String response;
+	private List<String> response;
 	private boolean flickrOk = true;
 	private boolean panoramioOk = true;
 
@@ -15,11 +17,11 @@ public class Request {
 		this.query = query;
 	}
 
-	public String getResponse(){
+	public List<String> getResponse(){
 		return response;
 	}
 
-	public void setResponse(String response){
+	public void setResponse(List<String> response){
 		this.response = response;
 	}
 

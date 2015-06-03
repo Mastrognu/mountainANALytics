@@ -14,7 +14,7 @@ public class URLUtils {
 	 * @return The URL for the Flickr GET request
 	 */
 	public static String getFlickrTagsURL(String text) {
-		return FLICKR_BASE_URL + FlickrRQ.API_KEY + "&tags=" + text.replace(" ", "+") + FLICKR_APPENDIX;
+		return FLICKR_BASE_URL + FlickrRQ.API_KEY + "&tags=" + text.toLowerCase().replace(" ", "+") + FLICKR_APPENDIX;
 	}
 
 	/**

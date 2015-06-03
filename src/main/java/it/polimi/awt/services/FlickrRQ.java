@@ -16,39 +16,39 @@ import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 
 @Service
-public class FlickrRQ implements SocialNetworkInterface {
+public class FlickrRQ implements ISocialNetwork {
 
 	public static final String API_KEY = "8ba1865ec3cc2789404826aaf1ec82c3";
 	private static final String SHARED_SECRET = "9794f74bdc128d35";
 	private static final String FLICKR_TEST_URL = "https://api.flickr.com/services/rest/?method=flickr.test.echo&name=value";
 
-	public String sendPingRequest() throws IOException {
+	public List<String> sendPingRequest() throws IOException {
 		return getConnection(FLICKR_TEST_URL);
 	}
 
 	@Override
-	public String sendTagsRequest(String tags) throws IOException {
+	public List<String> sendTagsRequest(String tags) throws IOException {
 		return getConnection(URLUtils.getFlickrTagsURL(tags));
 	}
 
 	@Override
-	public String sendCoordinatesRequest(int latD, int latM, int latS, int lonD, int lonM, int lonS) throws IOException {
+	public List<String> sendCoordinatesRequest(int latD, int latM, int latS, int lonD, int lonM, int lonS) throws IOException {
 		return getConnection(URLUtils.getFlickrCoordinatesURL(latD, latM, latS, lonD, lonM, lonS));
 	}
 
 	@Override
-	public String sendTextRequest(String text) {
+	public List<String> sendTextRequest(String text) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String sendCoordinatesRequest(float latitude, float longitude) {
+	public List<String> sendCoordinatesRequest(float latitude, float longitude) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	private String getConnection(String url) throws IOException {
+	private List<String> getConnection(String url) throws IOException {
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
  
@@ -66,15 +66,15 @@ public class FlickrRQ implements SocialNetworkInterface {
 			response.append(tmp);
 
 		System.out.println(response.toString());
-		
+
 		JSONUtils parser = new JSONUtils();
 		JsonFactory jsonF = new JsonFactory();
 		@SuppressWarnings("deprecation")
 		JsonParser jp = jsonF.createJsonParser(response.toString());
 		List<String> entry = parser.readFlickr(jp);
-		
+
 		System.out.println(entry.size());
 
-		return entry.toString();
+		return entry;
 	}
 }

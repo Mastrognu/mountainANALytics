@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 //@Service
 @Transactional
-public class MountainServiceImplementation implements MountainService {
+public class MountainServiceImplementation implements IMountainService {
 
 	@Autowired
 	private MountainRepository mountainRepository;
