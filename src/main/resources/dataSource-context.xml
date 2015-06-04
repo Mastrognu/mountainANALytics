@@ -21,8 +21,8 @@
 	<bean id="emf"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="packagesToScan" value="it.polimi.awt" />
-		<!-- <property name="persistenceUnitName" value="AccountUnit " /> -->
+		<property name="packagesToScan" value="it.polimi.awt.domain" />
+		<property name="persistenceUnitName" value="PhotoUnit " />
 		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
 	</bean>
 
