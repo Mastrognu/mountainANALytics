@@ -40,10 +40,10 @@ public class FormController {
 	public String saveUrlFromForm(Photo photo) {
 		
 		System.out.println(photo.getUrl());
-
-		photoService.insertPhoto(photo.getUrl());
-
-		return "redirect:/views";
+		photoService.insertPhoto(photo);
+		
+		return "jspdafare";
+		
 	}
 		
 

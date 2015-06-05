@@ -4,5 +4,5 @@ import it.polimi.awt.domain.Photo;
 
 public interface PhotoRepository {
 
-	public void insertPhoto(String url);
+	public void insertPhoto(Photo photo);
 }

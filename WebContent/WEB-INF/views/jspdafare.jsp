@@ -21,7 +21,8 @@
 		<spring:url value="/selection" var="saveUrlFromForm" />
 		<form action="${saveUrlFromForm}" method="post">
 			<input type="hidden" name="url" value="${url}" /><br /> <img
-				src="<c:url value="${url}"/>" /><br /> <input type="submit" value="Save" />
+				src="<c:url value="${url}"/>" /><br /> <input type="submit"
+				value="Save" />
 		</form>
 		<br />
 	</c:forTokens>
