@@ -37,10 +37,11 @@ public class FormController {
 	}
 	
 	@RequestMapping(value="/selection")
-	public String saveUrlFromForm(@RequestParam(value="url",required=false) String Url) {
-		Photo photo = new Photo();
-		photo.setUrl(Url);
-		photoService.insertPhoto(photo);
+	public String saveUrlFromForm(Photo photo) {
+		
+		System.out.println(photo.getUrl());
+
+		photoService.insertPhoto(photo.getUrl());
 
 		return "redirect:/views";
 	}

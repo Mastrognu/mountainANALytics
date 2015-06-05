@@ -12,7 +12,7 @@ public class JpaPhotoRepository implements PhotoRepository{
 	@PersistenceContext
 	private EntityManager em;
 	
-	public void insertPhoto (Photo photo) {
-		em.persist(photo);
+	public void insertPhoto (String url) {
+		em.persist(url);
 	}
 }
