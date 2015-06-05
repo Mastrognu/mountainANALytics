@@ -12,14 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class FormController {
 	@Autowired
 	ISocialNetwork sni;
 	
-//	@Autowired
-//	PhotoService photoService;
+	@Autowired
+	PhotoService photoService;
 
 	@RequestMapping("/view")
 	public String addQueryFromForm(Request request) {
@@ -35,12 +36,14 @@ public class FormController {
 		return "jspdafare";
 	}
 	
-//	@RequestMapping(value="/selection", params="Save", method=RequestMethod.POST)
-//	public String saveUrlFromForm(Photo photo) {
-//		
-//		photoService.insertPhoto(photo);
-//		return "redirect:/views";
-//	}
+	@RequestMapping(value="/selection")
+	public String saveUrlFromForm(@RequestParam(value="url",required=false) String Url) {
+		Photo photo = new Photo();
+		photo.setUrl(Url);
+		photoService.insertPhoto(photo);
+
+		return "redirect:/views";
+	}
 		
 
 	

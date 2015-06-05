@@ -9,13 +9,13 @@
 				        http://www.springframework.org/schema/tx
     					http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-	<!-- VA INTEGRATO IN WEB.XML -->
 
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://server:3306/db_schema" />
+		<property name="url" value="jdbc:mysql://localhost:3306/mydb" />
 		<property name="username" value="root" />
-		<property name="password" value="" />
+		<property name="password" value="anardopeloso" />
 	</bean>
 
 	<bean id="emf"

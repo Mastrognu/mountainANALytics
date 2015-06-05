@@ -22,8 +22,8 @@
   	<param-name>contextConfigLocation</param-name>
   	<param-value>
   		classpath:service-context.xml
-<!--   		classpath:persistence-context.xml
-  		classpath:dataSource-context.xml -->
+  		classpath:persistence-context.xml
+  		classpath:dataSource-context.xml 
   	</param-value>
   </context-param>
   
