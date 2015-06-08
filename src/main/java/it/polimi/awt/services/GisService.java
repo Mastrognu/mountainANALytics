@@ -1,6 +1,7 @@
 package it.polimi.awt.services;
 
 import it.polimi.awt.utils.JSONUtils;
+import it.polimi.awt.utils.XMLUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,7 +11,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.springframework.stereotype.Service;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
@@ -21,7 +26,6 @@ public class GisService implements IGisService {
 	@Override
 	public List<String> getCoordinatesFromLocation(String text) throws IOException {
 		List<String> list = getConnection("http://services.gisgraphy.com//geocoding/geocode?address="+text.toLowerCase().replace(" ", "%20")+"&country=IT");
-		System.out.println(list.toString());
 		//TODO Selezionare solo i risultati che sono CITY
 		return null;
 	}
@@ -43,6 +47,13 @@ public class GisService implements IGisService {
 		if ((tmp = in.readLine()) != null)
 			response.add(tmp);
 
+		Document doc;
+		try {
+			doc = XMLUtils.loadXMLFromString(response.toString());
+		} catch (ParserConfigurationException | SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return response;
 	}
 }
