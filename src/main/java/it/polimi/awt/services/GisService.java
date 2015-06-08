@@ -23,7 +23,6 @@ import com.fasterxml.jackson.core.JsonParser;
 @Service
 public class GisService implements IGisService {
 
-	@Override
 	public List<String> getCoordinatesFromLocation(String text) throws IOException {
 		List<String> list = getConnection("http://services.gisgraphy.com//geocoding/geocode?address="+text.toLowerCase().replace(" ", "%20")+"&country=IT");
 		//TODO Selezionare solo i risultati che sono CITY
@@ -50,9 +49,11 @@ public class GisService implements IGisService {
 		Document doc;
 		try {
 			doc = XMLUtils.loadXMLFromString(response.toString());
-		} catch (ParserConfigurationException | SAXException e) {
+		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (SAXException e) {
+			
 		}
 		return response;
 	}

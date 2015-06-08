@@ -26,23 +26,19 @@ public class FlickrRQ implements ISocialNetwork {
 		return getConnection(FLICKR_TEST_URL);
 	}
 
-	@Override
 	public List<String> sendTagsRequest(String tags) throws IOException {
 		return getConnection(URLUtils.getFlickrTagsURL(tags));
 	}
 
-	@Override
 	public List<String> sendCoordinatesRequest(int latD, int latM, int latS, int lonD, int lonM, int lonS) throws IOException {
 		return getConnection(URLUtils.getFlickrCoordinatesURL(latD, latM, latS, lonD, lonM, lonS));
 	}
 
-	@Override
 	public List<String> sendTextRequest(String text) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public List<String> sendCoordinatesRequest(float latitude, float longitude) {
 		// TODO Auto-generated method stub
 		return null;

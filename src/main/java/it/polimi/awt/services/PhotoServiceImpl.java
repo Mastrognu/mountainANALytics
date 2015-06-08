@@ -15,7 +15,6 @@ public class PhotoServiceImpl implements PhotoService {
 	@Autowired
 	private PhotoRepository photoRepository;
 	
-	@Override
 	public void insertPhoto(Photo photo) {
 		
 		photoRepository.insertPhoto(photo);

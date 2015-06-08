@@ -87,7 +87,10 @@ public class ReadXMLFile {
 
 		try {
 			saxParser.parse("c:\\file.xml", handler);
-		} catch (SAXException | IOException e) {
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
