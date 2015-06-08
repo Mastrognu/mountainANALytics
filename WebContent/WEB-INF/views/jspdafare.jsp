@@ -10,20 +10,23 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Results</title>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<!-- <script>
-$(document).ready(function(){
-    $("button").click(function(){
-        $.post("demo_test_post.asp",
-        {
-          name: "Donald Duck",
-          city: "Duckburg"
-        },
+<script>
+
+
+<c:forTokens items="${request.response}" delims="," var="url">
+function handlePost${url}(){
+	alert($("${url}"));
+	$.post("http://localhost:8080/MountainANALytics/selection",
+			${url},
         function(data,status){
             alert("Data: " + data + "\nStatus: " + status);
         });
-    });
-});
-</script> -->
+}
+<br />
+</c:forTokens>
+
+
+</script> 
 </head>
 <body>
 	Your query is: ${request.query}.
@@ -33,12 +36,13 @@ $(document).ready(function(){
 	<br />
 	<br />
 	<c:forTokens items="${request.response}" delims="," var="url">
-		<spring:url value="/selection" var="saveUrlFromForm" />
-		<form action="${saveUrlFromForm}" method="post">
-			<input type="hidden" name="url" value="${url}" /><br /> <img
-				src="<c:url value="${url}"/>" /><br /> <input type="submit"
-				value="Save" />
-		</form>
+		<%-- <spring:url value="/selection" var="saveUrlFromForm" /> --%>
+		<%-- <form action="${saveUrlFromForm}" method="post"> --%>
+			<%-- <input type="hidden" name="url" value="${url}" /><br />  --%>
+			<img src="<c:url value="${url}"/>" /><br /> 
+			<button onclick="handlePost${url}" id="${url}">Save</button>
+			<!-- <input type="submit" value="Save" /> -->
+		<%-- </form> --%>
 		<br />
 	</c:forTokens>
 </body>

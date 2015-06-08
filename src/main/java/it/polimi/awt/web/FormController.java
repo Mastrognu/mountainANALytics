@@ -40,9 +40,10 @@ public class FormController {
 	public String saveUrlFromForm(Photo photo) {
 		
 		System.out.println(photo.getUrl());
+		String saved = "Saved";
 		photoService.insertPhoto(photo);
 		
-		return "jspdafare";
+		return saved;
 		
 	}
 		
