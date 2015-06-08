@@ -1,6 +1,5 @@
 package it.polimi.awt.services;
 
-import it.polimi.awt.utils.JSONUtils;
 import it.polimi.awt.utils.XMLUtils;
 
 import java.io.BufferedReader;
@@ -16,9 +15,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
-
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonParser;
 
 @Service
 public class GisService implements IGisService {
