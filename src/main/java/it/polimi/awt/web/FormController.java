@@ -37,14 +37,26 @@ public class FormController {
 	}
 	
 	@RequestMapping(value="/selection")
-	public String saveUrlFromForm(Photo photo) {
+	public String saveUrlFromForm(String url) {
 		
-		System.out.println(photo.getUrl());
+		Photo photo = new Photo();
+		
+		photo.setUrl(url);
+			
 		String saved = "Saved";
 		photoService.insertPhoto(photo);
 		
 		return saved;
 		
+//	@RequestMapping(value="/selection")
+//	public String saveUrlFromForm(Photo photo) {
+//		
+//		System.out.println(photo.getUrl());
+//		String saved = "Saved";
+//		photoService.insertPhoto(photo);
+//		
+//		return saved;
+//		
 	}
 		
 
