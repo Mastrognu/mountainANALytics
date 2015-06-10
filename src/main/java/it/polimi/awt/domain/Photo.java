@@ -11,21 +11,21 @@ import javax.persistence.Table;
 public class Photo {
 
 	@Id
-	private int id;
+	private int photoID;
 	private String url;
 
+	private Random rnd;
+
 	public Photo() {
-		super();
-		Random rand = new Random();
-		this.id = rand.nextInt();
+		rnd = new Random();
 	}
 
 	public int getId() {
-		return id;
+		return photoID;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.photoID = rnd.nextInt(65536);
 	}
 
 	public String getUrl() {

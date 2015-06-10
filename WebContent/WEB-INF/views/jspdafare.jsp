@@ -12,14 +12,13 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
 
-function clickButton(){
-	$(button).click(function(){
-	alert (this.id);
-	$.post("http://localhost:8080/MountainANALytics/selection", this.id,
+function clickButton(button){
+	var url = $(button).data("url");
+	alert (url);
+	$.post("http://localhost:8080/MountainANALytics/selection", "ciao",
 	            function(data,status){
 	                alert("Data: " + data + "\nStatus: " + status);
 	            });
-	});
 	}
 
 </script> 
@@ -33,7 +32,7 @@ function clickButton(){
 	<br />
 	<c:forTokens items="${request.response}" delims="," var="url">
 			<img src="<c:url value="${url}"/>" /><br /> 
-			<button id="${url}" onclick="clickButton()">Save</button>
+			<button data-url="${url}" onclick="clickButton(this)">Save</button>
 		<br />
 		</c:forTokens>
 		
