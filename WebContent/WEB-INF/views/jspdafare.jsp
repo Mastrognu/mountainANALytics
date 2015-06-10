@@ -14,7 +14,7 @@
 
 function clickButton(button){
 	var url = $(button).data("url");
-	$.post("http://localhost:8080/MountainANALytics/selection", url);
+	$.post("http://localhost:8080/MountainANALytics/selection", {url: url});
 	alert (url);
 	}
 

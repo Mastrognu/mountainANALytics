@@ -1,6 +1,5 @@
 package it.polimi.awt.domain;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,7 +10,7 @@ import javax.persistence.Table;
 @Table(name = "photo")
 public class Photo {
 
-	@Id	@Column(unique = true)
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int photoID;
 	private double latitude;
 	private double longitude;
