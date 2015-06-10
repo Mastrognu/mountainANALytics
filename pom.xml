@@ -89,5 +89,11 @@
 			<artifactId>spring-jdbc</artifactId>
 			<version>4.0.3.RELEASE</version>
 		</dependency>
+		<dependency>
+			<groupId>sax</groupId>
+			<artifactId>sax</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+
 	</dependencies>
 </project>
