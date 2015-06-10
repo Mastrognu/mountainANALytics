@@ -45,6 +45,10 @@ public class URLUtils {
 		return PANORAMIO_URL + "&from=" + from + "&to=" + to + "&minx=" + minx + "&miny=" + miny + "&maxx=" + maxx + "&maxy=" + maxy + "&size=medium&mapfilter=true";
 	}
 
+	public static String urlFormatter(String url) {
+		return url.replace("%3A", ":").replace("%2F", "/").replace("=", "").substring(1);
+	}
+
 	private static double convertCoordsToDecimal(int d, int m, int s) {
 		return Math.signum(d) * (Math.abs(d) + (m / 60.0) + (s / 3600.0));
 	}

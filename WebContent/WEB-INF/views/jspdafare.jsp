@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=US-ASCII"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="US-ASCII"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -14,11 +14,8 @@
 
 function clickButton(button){
 	var url = $(button).data("url");
+	$.post("http://localhost:8080/MountainANALytics/selection", url);
 	alert (url);
-	$.post("http://localhost:8080/MountainANALytics/selection", "ciao",
-	            function(data,status){
-	                alert("Data: " + data + "\nStatus: " + status);
-	            });
 	}
 
 </script> 
