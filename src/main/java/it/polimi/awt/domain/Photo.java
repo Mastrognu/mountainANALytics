@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "mountaindb")
+@Table(name = "photo")
 public class Photo {
 
 	@Id
