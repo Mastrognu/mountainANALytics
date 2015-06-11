@@ -8,6 +8,11 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 			<title>Results</title>
+			<style type="text/css">
+				 html { height: 100% }
+				 body { height: 100%; margin: 0; padding: 0 }
+				 #map-canvas { height: 100% }
+			</style>
 			<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" />
 			<script>
 				function clickButton(button){
@@ -17,20 +22,26 @@
 					}
 			</script>
 
-			<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=sensor=false"></script>
+			<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
 			<script type="text/javascript">
-			function initialize() {
-				var mapOptions = {
-				center: { lat: -34.397, lng: 150.644},
-				zoom: 8
-				};
-				var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-			}
-			google.maps.event.addDomListener(window, 'load', initialize);
+				function initialize() {
+					var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
+					var mapOptions = {
+						center: myLatlng,
+						zoom: 4, 
+					};
+					
+					var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+					
+					var marker = new google.maps.Marker({
+					      position: myLatlng,
+					      title: 'Hello World!'
+					  });
+					marker.setMap(map);
+				}				
+				google.maps.event.addDomListener(window, 'load', initialize);				
 			</script>
-			<style type="text/css">
-				html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
-			</style>
+
 		</head>
 		<body>
 		<div id="map-canvas" />
