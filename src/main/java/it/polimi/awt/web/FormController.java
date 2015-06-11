@@ -2,10 +2,9 @@ package it.polimi.awt.web;
 
 import it.polimi.awt.domain.Photo;
 import it.polimi.awt.domain.Request;
-import it.polimi.awt.repository.PhotoRepository;
 import it.polimi.awt.services.GisService;
 import it.polimi.awt.services.ISocialNetwork;
-import it.polimi.awt.services.PhotoService;
+import it.polimi.awt.services.IPhotoService;
 
 import java.io.IOException;
 
@@ -20,10 +19,7 @@ public class FormController {
 	ISocialNetwork sni;
 
 	@Autowired
-	PhotoService photoService;
-
-	@Autowired
-	PhotoRepository em;
+	IPhotoService photoService;
 
 	@RequestMapping("/view")
 	public String addQueryFromForm(Request request) {
@@ -50,10 +46,9 @@ public class FormController {
 		Photo photo2 = new Photo();
 		//TODO CHE TETTE ENORMI!
 		photo2.setUrl(photo.getUrl());
-		String saved = "Saved";
 		photoService.insertPhoto(photo2);
 
-		return saved;
+		return "saved";
 
 		// @RequestMapping(value="/selection")
 		// public String saveUrlFromForm(Photo photo) {
