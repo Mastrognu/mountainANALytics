@@ -12,32 +12,33 @@
 				 html { height: 100% }
 				 body { height: 100%; margin: 0; padding: 0 }
 				 #map-canvas { height: 100% }
-			</style> 
+			</style>
 			<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" />
 			<script>
 				function clickButton(button){
 					var url = $(button).data("url");
+					alert ("ciao");
 					$.post("http://localhost:8080/MountainANALytics/selection", {url: url});
-					alert (url);
+					<!-- alert (url); -->
 					}
 			</script>
 
 			<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
 			<script type="text/javascript">
+
 				function initialize() {
 					var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
 					var mapOptions = {
 						center: myLatlng,
-						zoom: 4, 
+						zoom: 4,
+						mapTypeId: google.maps.MapTypeId.SATELLITE
 					};
 					
 					var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 					
-					var contentString = '<img src="https://pmchollywoodlife.files.wordpress.com/2014/08/christy-mack-beaut-up-photos-t-dr-nicholas-toscano-ftr.jpg?w=600&h=600&crop=1">';
+					var contentString = '<img src="https://pmchollywoodlife.files.wordpress.com/2014/08/christy-mack-beaut-up-photos-t-dr-nicholas-toscano-ftr.jpg?w=600&h=600&crop=1" width="320px" height="320px"><br><button data-url="${url}" onclick="clickButton(this)">Save</button>';
 					
-					var infowindow = new google.maps.InfoWindow({
-					      content: contentString
-					  });
+					var infowindow = new google.maps.InfoWindow();
 					
 					var marker = new google.maps.Marker({
 					      position: myLatlng,
@@ -45,6 +46,7 @@
 					      title: 'Hello World!',
 					  });
 					  google.maps.event.addListener(marker, 'click', function() {
+							infowindow.setContent(contentString);
 						    infowindow.open(map,marker);
 						});
 					/* marker.setMap(map); */
