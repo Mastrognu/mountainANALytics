@@ -32,7 +32,7 @@ public class FormController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "jspdafare";
+		return "MapView";
 	}
 
 	@RequestMapping(value = "/selection", method = RequestMethod.POST)
