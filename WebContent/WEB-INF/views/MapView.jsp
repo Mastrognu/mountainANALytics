@@ -8,11 +8,11 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 			<title>Results</title>
-			<style type="text/css">
+ 			<style type="text/css">
 				 html { height: 100% }
 				 body { height: 100%; margin: 0; padding: 0 }
 				 #map-canvas { height: 100% }
-			</style>
+			</style> 
 			<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" />
 			<script>
 				function clickButton(button){
@@ -33,11 +33,22 @@
 					
 					var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 					
+					var contentString = '<img src="https://pmchollywoodlife.files.wordpress.com/2014/08/christy-mack-beaut-up-photos-t-dr-nicholas-toscano-ftr.jpg?w=600&h=600&crop=1">';
+					
+					var infowindow = new google.maps.InfoWindow({
+					      content: contentString
+					  });
+					
 					var marker = new google.maps.Marker({
 					      position: myLatlng,
-					      title: 'Hello World!'
+					      map: map,
+					      title: 'Hello World!',
 					  });
-					marker.setMap(map);
+					  google.maps.event.addListener(marker, 'click', function() {
+						    infowindow.open(map,marker);
+						});
+					/* marker.setMap(map); */
+			
 				}				
 				google.maps.event.addDomListener(window, 'load', initialize);				
 			</script>
@@ -45,6 +56,7 @@
 		</head>
 		<body>
 		<div id="map-canvas" />
+		
 		Your query is: ${request.query}.
 		<br />
 		<br />
