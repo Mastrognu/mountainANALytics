@@ -20,8 +20,8 @@ import org.xml.sax.SAXException;
 public class GisService implements IGisService {
 
 	public List<String> getCoordinatesFromLocation(String text) throws IOException {
-		List<String> list = getConnection("http://services.gisgraphy.com//geocoding/geocode?address="+text.toLowerCase().replace(" ", "%20")+"&country=IT");
-		//TODO Selezionare solo i risultati che sono CITY
+		List<String> list = getConnection("http://services.gisgraphy.com/fulltext/fulltextsearch?q="+text.toLowerCase().replace(" ", "%20")+"&country=IT");
+		//TODO Selezionare solo i risultati che sono CITY o MONUNTAIN/PEEKS, si possono filtrare direttamente dall'url!!!!!!!!
 		return null;
 	}
 
