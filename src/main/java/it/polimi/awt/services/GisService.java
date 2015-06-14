@@ -22,7 +22,7 @@ public class GisService implements IGisService {
 	public List<String> getCoordinatesFromLocation(String text) throws IOException {
 		List<String> listMountain = getConnection("http://services.gisgraphy.com/fulltext/fulltextsearch?q="+text.toLowerCase().replace(" ", "%20")+"&country=IT"+"&placetype=Mountain");
 		List<String> listCity = getConnection("http://services.gisgraphy.com/fulltext/fulltextsearch?q="+text.toLowerCase().replace(" ", "%20")+"&country=IT"+"&placetype=City"); 
-		//TODO in qualche modo col parser xml bisogna dire che se c'è una montagna allora si ritorn quella, se no la city pertinente, che di solito è la prima 
+		//TODO in qualche modo col parser xml bisogna dire che se c'è una montagna allora si ritorn quella, se no la city pertinente, che di solito è la prima si manda al nearby
 		return listMountain;
 	}
 	
