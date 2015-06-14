@@ -20,9 +20,18 @@ import org.xml.sax.SAXException;
 public class GisService implements IGisService {
 
 	public List<String> getCoordinatesFromLocation(String text) throws IOException {
-		List<String> list = getConnection("http://services.gisgraphy.com/fulltext/fulltextsearch?q="+text.toLowerCase().replace(" ", "%20")+"&country=IT");
-		//TODO Selezionare solo i risultati che sono CITY o MONUNTAIN/PEEKS, si possono filtrare direttamente dall'url!!!!!!!!
-		return null;
+		List<String> listMountain = getConnection("http://services.gisgraphy.com/fulltext/fulltextsearch?q="+text.toLowerCase().replace(" ", "%20")+"&country=IT"+"&placetype=Mountain");
+		List<String> listCity = getConnection("http://services.gisgraphy.com/fulltext/fulltextsearch?q="+text.toLowerCase().replace(" ", "%20")+"&country=IT"+"&placetype=City"); 
+		//TODO in qualche modo col parser xml bisogna dire che se c'è una montagna allora si ritorn quella, se no la city pertinente, che di solito è la prima 
+		return listMountain;
+	}
+	
+	public List<String> getNearbyPlacesFromCoordinates(double lat, double lng) throws IOException{
+		
+		List<String> nearbySet = getConnection("http://services.gisgraphy.com/geoloc/search?lat="+lat+"&lng="+lng+"&radius=7000");
+		
+		return nearbySet;
+		
 	}
 
 	private List<String> getConnection(String url) throws IOException {
