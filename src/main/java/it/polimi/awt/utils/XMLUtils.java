@@ -31,7 +31,7 @@ public class XMLUtils {
 
 		NodeList nList = doc.getElementsByTagName("doc");
 
-		System.out.println("----------------------------");
+
 
 		List<Response> responseList = new LinkedList<Response>();
 
@@ -56,7 +56,6 @@ public class XMLUtils {
 				responseList.add(response);
 			}
 		}
-		System.out.println("ResponseList= "+responseList.toString());
 		return responseList;
 	}
 }

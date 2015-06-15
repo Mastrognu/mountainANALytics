@@ -30,20 +30,6 @@ public class FlickrRQ implements ISocialNetwork {
 		return getConnection(URLUtils.getFlickrTagsURL(tags));
 	}
 
-	public List<String> sendCoordinatesRequest(int latD, int latM, int latS, int lonD, int lonM, int lonS) throws IOException {
-		return getConnection(URLUtils.getFlickrCoordinatesURL(latD, latM, latS, lonD, lonM, lonS));
-	}
-
-	public List<String> sendTextRequest(String text) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public List<String> sendCoordinatesRequest(float latitude, float longitude) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	private List<String> getConnection(String url) throws IOException {
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();

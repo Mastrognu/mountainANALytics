@@ -19,20 +19,6 @@ public class URLUtils {
 
 	/**
 	 * 
-	 * @param latD Latitude degrees
-	 * @param latM Latitude minutes
-	 * @param latS Latitude seconds
-	 * @param lonD Longitude degrees
-	 * @param lonM Longitude minutes
-	 * @param lonS Longitude seconds
-	 * @return The URL for the Flickr GET request
-	 */
-	public static String getFlickrCoordinatesURL(int latD, int latM, int latS, int lonD, int lonM, int lonS) {
-		return FLICKR_BASE_URL + FlickrRQ.API_KEY + "&lat=" + convertCoordsToDecimal(latD, latM, latS) + "&lon=" + convertCoordsToDecimal(lonD, lonM, lonS) + FLICKR_APPENDIX;
-	}
-
-	/**
-	 * 
 	 * @param from The first photo of the set required
 	 * @param to The last photo of the set required
 	 * @param minx Minimum longitude
@@ -47,9 +33,5 @@ public class URLUtils {
 
 	public static String urlFormatter(String url) {
 		return url.replace("%3A", ":").replace("%2F", "/").replace("=", "").substring(1);
-	}
-
-	private static double convertCoordsToDecimal(int d, int m, int s) {
-		return Math.signum(d) * (Math.abs(d) + (m / 60.0) + (s / 3600.0));
 	}
 }

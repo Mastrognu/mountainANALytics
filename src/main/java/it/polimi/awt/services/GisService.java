@@ -40,7 +40,7 @@ public class GisService implements IGisService {
 	public List<Response> getNearbyPlacesFromCoordinates(double lat, double lng, int radius) throws IOException {
 
 		List<Response> nearbySet = getConnection("http://services.gisgraphy.com/geoloc/search?lat="
-				+ lat + "&lng=" + lng + "&radius="+radius, QueryType.PLACE);
+				+ lat + "&lng=" + lng + "&radius="+radius, QueryType.MOUNTAIN);
 
 		return nearbySet;
 
@@ -62,9 +62,9 @@ public class GisService implements IGisService {
 		while ((tmp = in.readLine()) != null)
 			response.append(tmp);
 
-		List<Response> doc = null;
+		List<Response> responseList = null;
 		try {
-			doc = XMLUtils.loadXMLFromString(response.toString(), queryType);
+			responseList = XMLUtils.loadXMLFromString(response.toString(), queryType);
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -72,6 +72,6 @@ public class GisService implements IGisService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return doc;
+		return responseList;
 	}
 }

@@ -2,11 +2,13 @@ package it.polimi.awt.web;
 
 import it.polimi.awt.domain.Photo;
 import it.polimi.awt.domain.Request;
-import it.polimi.awt.services.GisService;
-import it.polimi.awt.services.ISocialNetwork;
+import it.polimi.awt.domain.Response;
+import it.polimi.awt.services.IGisService;
 import it.polimi.awt.services.IPhotoService;
+import it.polimi.awt.services.ISocialNetwork;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,12 +23,15 @@ public class FormController {
 	@Autowired
 	IPhotoService photoService;
 
+	@Autowired
+	IGisService gisService;
+
 	@RequestMapping("/view")
 	public String addQueryFromForm(Request request) {
 		// Va fatto con l'injection, non come una semplice chiamata
 		try {
-			GisService gis = new GisService();
-			gis.getCoordinatesFromLocation(request.getQuery());
+			List<Response> lr = gisService.getCoordinatesFromLocation(request.getQuery());
+			System.out.println(lr);
 //			request.setResponse(sni.sendTagsRequest(request.getQuery()));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
