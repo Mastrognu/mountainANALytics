@@ -26,8 +26,8 @@ public class FormController {
 		// Va fatto con l'injection, non come una semplice chiamata
 		try {
 			GisService gis = new GisService();
-			gis.getCoordinatesFromLocation("Monte Bianco");
-			request.setResponse(sni.sendTagsRequest(request.getQuery()));
+			gis.getCoordinatesFromLocation(request.getQuery());
+//			request.setResponse(sni.sendTagsRequest(request.getQuery()));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

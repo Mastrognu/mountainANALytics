@@ -37,10 +37,10 @@ public class GisService implements IGisService {
 		return listCity;
 	}
 
-	public List<Response> getNearbyPlacesFromCoordinates(double lat, double lng) throws IOException {
+	public List<Response> getNearbyPlacesFromCoordinates(double lat, double lng, int radius) throws IOException {
 
 		List<Response> nearbySet = getConnection("http://services.gisgraphy.com/geoloc/search?lat="
-				+ lat + "&lng=" + lng + "&radius=7000", QueryType.PLACE);
+				+ lat + "&lng=" + lng + "&radius="+radius, QueryType.PLACE);
 
 		return nearbySet;
 
