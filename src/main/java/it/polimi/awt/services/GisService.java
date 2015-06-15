@@ -26,16 +26,17 @@ public class GisService implements IGisService {
 				+ text.toLowerCase().replace(" ", "%20")
 				+ "&country=IT"
 				+ "&placetype=Mountain");
-		List<Response> listCity = getConnection("http://services.gisgraphy.com/fulltext/fulltextsearch?q="
-				+ text.toLowerCase().replace(" ", "%20")
-				+ "&country=IT"
-				+ "&placetype=City");
+//		List<Response> listCity = getConnection("http://services.gisgraphy.com/fulltext/fulltextsearch?q="
+//				+ text.toLowerCase().replace(" ", "%20")
+//				+ "&country=IT"
+//				+ "&placetype=City");
 		// TODO in qualche modo col parser xml bisogna dire che se c'è una
 		// montagna allora si ritorn quella, se no la city pertinente, che di
 		// solito è la prima si manda al nearby
-		if (listMountain.size() > 0)
-			return listMountain;
-		return listCity;
+//		if (listMountain.size() > 0)
+//			return listMountain;
+//		return listCity;
+		return listMountain;
 	}
 
 	public List<Response> getNearbyPlacesFromCoordinates(double lat, double lng)
@@ -59,15 +60,16 @@ public class GisService implements IGisService {
 
 		BufferedReader in = new BufferedReader(new InputStreamReader(
 				con.getInputStream()));
-		String response = new String();
+		StringBuilder response = new StringBuilder();
 
 		String tmp;
-		if ((tmp = in.readLine()) != null)
-			response = tmp;
+		while ((tmp = in.readLine()) != null)
+			response.append(tmp);
 
-		Document doc = null;
+		System.out.print("RESPONSE= "+response+"\n");
+		List<Response> doc = null;
 		try {
-			doc = XMLUtils.loadXMLFromString(response);
+			doc = XMLUtils.loadXMLFromString(response.toString());
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -75,6 +77,6 @@ public class GisService implements IGisService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return JAXBMapper.readXML(doc);
+		return doc;
 	}
 }

@@ -10,7 +10,15 @@ public class Response {
 //		CITY;
 //	}
 	private String type;
-	
+
+	public Response() {}
+
+	@Override
+	public String toString() {
+		return "Response [name=" + name + ", lat=" + lat + ", lng=" + lng
+				+ ", type=" + type + "]";
+	}
+
 	public Response(String name, double latitude, double longitude, String type) {
 		this.name = name;
 		this.lat = latitude;

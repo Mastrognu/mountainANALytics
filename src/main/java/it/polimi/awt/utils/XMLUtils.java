@@ -1,95 +1,66 @@
 package it.polimi.awt.utils;
 
+import it.polimi.awt.domain.Response;
+
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 
 import org.w3c.dom.Document;
-import org.xml.sax.Attributes;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
 
 public class XMLUtils {
 
-	public static Document loadXMLFromString(String xml)
-			throws ParserConfigurationException, SAXException, IOException {
+	public static List<Response> loadXMLFromString(String xml)
+			throws ParserConfigurationException, IOException, SAXException {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = factory.newDocumentBuilder();
 		InputSource is = new InputSource(new StringReader(xml));
-		return builder.parse(is);
-	}
+		System.out.println("\nXML= " + xml);
+		Document doc = builder.parse(is);
+		doc.getDocumentElement().normalize();
+		System.out.println("\nRoot element :"
+				+ doc.getDocumentElement().getNodeName());
 
-	public static void readXML() throws ParserConfigurationException,
-			SAXException, IOException {
-		SAXParserFactory factory = SAXParserFactory.newInstance();
-		SAXParser saxParser = factory.newSAXParser();
+		NodeList nList = doc.getElementsByTagName("doc");
 
-		DefaultHandler handler = new DefaultHandler() {
+		System.out.println("----------------------------");
 
-			boolean bfname = false;
-			boolean blname = false;
-			boolean bnname = false;
-			boolean bsalary = false;
+		List<Response> responseList = new LinkedList<Response>();
 
-			public void startElement(String uri, String localName,
-					String qName, Attributes attributes) throws SAXException {
-
-				System.out.println("Start Element :" + qName);
-
-				if (qName.equalsIgnoreCase("FIRSTNAME"))
-					bfname = true;
-
-				if (qName.equalsIgnoreCase("LASTNAME"))
-					blname = true;
-
-				if (qName.equalsIgnoreCase("NICKNAME"))
-					bnname = true;
-
-				if (qName.equalsIgnoreCase("SALARY"))
-					bsalary = true;
+		for (int temp = 0; temp < nList.getLength(); temp++) {
+			Node nNode = nList.item(temp);
+			System.out.println("Current Element: " + nNode.getNodeName());
+			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+				Element eElement = (Element) nNode;
+				NodeList nl = (NodeList) eElement.getChildNodes();
+				Response response = new Response();
+				for (int i = 0; i < nl.getLength(); i++) {
+					NamedNodeMap nnm = nl.item(i).getAttributes();
+					for (int j = 0; j < nnm.getLength(); j++) {
+						Node n = nnm.item(j);
+						if (n.getTextContent().equals("name"))
+							response.setName(nl.item(i).getTextContent());
+						else if (n.getTextContent().equals("lat"))
+							response.setLat(Double.parseDouble(nl.item(i).getTextContent()));
+						else if (n.getTextContent().equals("lng"))
+							response.setLng(Double.parseDouble(nl.item(i).getTextContent()));
+					}
+				}
+				responseList.add(response);
 			}
-
-			public void endElement(String uri, String localName, String qName)
-					throws SAXException {
-				System.out.println("End Element :" + qName);
-			}
-
-			public void characters(char ch[], int start, int length)
-					throws SAXException {
-				if (bfname) {
-					System.out.println("First Name : "
-							+ new String(ch, start, length));
-					bfname = false;
-				}
-
-				if (blname) {
-					System.out.println("Last Name : "
-							+ new String(ch, start, length));
-					blname = false;
-				}
-
-				if (bnname) {
-					System.out.println("Nick Name : "
-							+ new String(ch, start, length));
-					bnname = false;
-				}
-
-				if (bsalary) {
-					System.out.println("Salary : "
-							+ new String(ch, start, length));
-					bsalary = false;
-				}
-
-			}
-
-		};
-
-		saxParser.parse("cazzi", handler);
+		}
+		System.out.println(responseList.toString());
+		return responseList;
 	}
 }
