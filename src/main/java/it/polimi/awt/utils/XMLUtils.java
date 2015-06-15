@@ -37,7 +37,8 @@ public class XMLUtils {
 			boolean bnname = false;
 			boolean bsalary = false;
 
-			public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+			public void startElement(String uri, String localName,
+					String qName, Attributes attributes) throws SAXException {
 
 				System.out.println("Start Element :" + qName);
 
@@ -54,18 +55,22 @@ public class XMLUtils {
 					bsalary = true;
 			}
 
-			public void endElement(String uri, String localName, String qName)throws SAXException {
+			public void endElement(String uri, String localName, String qName)
+					throws SAXException {
 				System.out.println("End Element :" + qName);
 			}
 
-			public void characters(char ch[], int start, int length) throws SAXException {
+			public void characters(char ch[], int start, int length)
+					throws SAXException {
 				if (bfname) {
-					System.out.println("First Name : "+ new String(ch, start, length));
+					System.out.println("First Name : "
+							+ new String(ch, start, length));
 					bfname = false;
 				}
 
 				if (blname) {
-					System.out.println("Last Name : "+ new String(ch, start, length));
+					System.out.println("Last Name : "
+							+ new String(ch, start, length));
 					blname = false;
 				}
 
