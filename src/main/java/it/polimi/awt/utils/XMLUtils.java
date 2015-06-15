@@ -1,5 +1,6 @@
 package it.polimi.awt.utils;
 
+import it.polimi.awt.domain.QueryType;
 import it.polimi.awt.domain.Response;
 
 import java.io.IOException;
@@ -21,16 +22,12 @@ import org.xml.sax.SAXException;
 
 public class XMLUtils {
 
-	public static List<Response> loadXMLFromString(String xml)
-			throws ParserConfigurationException, IOException, SAXException {
+	public static List<Response> loadXMLFromString(String xml, QueryType queryType) throws ParserConfigurationException, IOException, SAXException {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = factory.newDocumentBuilder();
 		InputSource is = new InputSource(new StringReader(xml));
-		System.out.println("\nXML= " + xml);
 		Document doc = builder.parse(is);
 		doc.getDocumentElement().normalize();
-		System.out.println("\nRoot element :"
-				+ doc.getDocumentElement().getNodeName());
 
 		NodeList nList = doc.getElementsByTagName("doc");
 
@@ -44,7 +41,7 @@ public class XMLUtils {
 			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 				Element eElement = (Element) nNode;
 				NodeList nl = (NodeList) eElement.getChildNodes();
-				Response response = new Response();
+				Response response = new Response(queryType);
 				for (int i = 0; i < nl.getLength(); i++) {
 					NamedNodeMap nnm = nl.item(i).getAttributes();
 					for (int j = 0; j < nnm.getLength(); j++) {
@@ -52,9 +49,9 @@ public class XMLUtils {
 						if (n.getTextContent().equals("name"))
 							response.setName(nl.item(i).getTextContent());
 						else if (n.getTextContent().equals("lat"))
-							response.setLat(Double.parseDouble(nl.item(i).getTextContent()));
+							response.setLatitude(Double.parseDouble(nl.item(i).getTextContent()));
 						else if (n.getTextContent().equals("lng"))
-							response.setLng(Double.parseDouble(nl.item(i).getTextContent()));
+							response.setLongitude(Double.parseDouble(nl.item(i).getTextContent()));
 					}
 				}
 				responseList.add(response);
