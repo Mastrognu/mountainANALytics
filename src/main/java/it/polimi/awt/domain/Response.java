@@ -38,6 +38,12 @@ public class Response {
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
+	public QueryType getType() {
+		return type;
+	}
+	public void setType(QueryType type) {
+		this.type = type;
+	}
 
 	@Override
 	public String toString() {

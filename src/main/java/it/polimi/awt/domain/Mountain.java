@@ -17,6 +17,15 @@ public class Mountain {
 	private int elevation;
 	private int drop;
 
+	public Mountain() {
+	}
+
+	public Mountain(String name, double latitude, double longitude){
+		this.name = name;
+		this.latitude = latitude;
+		this.longitude = longitude;
+	}
+
 	public int getDrop() {
 		return drop;
 	}
@@ -65,4 +74,10 @@ public class Mountain {
 		this.elevation = elevation;
 	}
 
+	@Override
+	public String toString() {
+		return "Mountain [mountainID=" + mountainID + ", name=" + name
+				+ ", latitude=" + latitude + ", longitude=" + longitude
+				+ ", elevation=" + elevation + ", drop=" + drop + "]";
+	}
 }

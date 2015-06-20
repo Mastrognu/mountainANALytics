@@ -1,5 +1,8 @@
 package it.polimi.awt.services;
 
+import java.util.List;
+
+import it.polimi.awt.domain.Mountain;
 import it.polimi.awt.domain.Photo;
 import it.polimi.awt.repository.PhotoRepository;
 
@@ -16,6 +19,10 @@ public class PhotoService implements IPhotoService {
 
 	public void insertPhoto(Photo photo) {
 		photoRepository.insertPhoto(photo);
+	}
+
+	public List<Mountain> mountainInDb(Mountain mquery) {
+		return photoRepository.mountainInDb(mquery);
 	}
 
 }
