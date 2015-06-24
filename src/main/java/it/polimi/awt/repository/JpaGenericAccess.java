@@ -21,15 +21,14 @@ public class JpaGenericAccess implements IJpaGenericAccess {
 		em.persist(photo);
 	}
 
+	//TODO Questo metodo può (e dovrebbe) ritornare Mountain e non List<Mountain>
 	public List<Mountain> mountainInDb(Mountain mquery) {
 		//TODO Errore "500 Session is closed!"
 		TypedQuery<Mountain> tqm = em.createQuery("SELECT m FROM Mountain m WHERE name LIKE :name", Mountain.class);
 		List<Mountain> list = tqm.setParameter("name", "%" + mquery.getName() + "%").getResultList();
-		/*for (int i = 0; i < tqm.getResultList().size(); i++)
-			System.out.println("AAAAAAAAAAAAAAAAAAA tqm= "+ tqm.getResultList().get(i));*/
 		for (Mountain m : list) {
 			System.out.println("JPA Result = "+ m);
 		}
-		return null;
+		return list;
 	}
 }

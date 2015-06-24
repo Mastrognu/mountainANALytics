@@ -39,11 +39,11 @@ public class GisService implements IGisService {
 		return listCity;
 	}
 
-	public List<Mountain> getNearbyPlacesFromCoordinates(double lat, double lng, int radius) throws IOException {
+	public List<Mountain> getNearbyPlacesFromCoordinates(double lat, double lng, int radius, int from, int to) throws IOException {
 
 		List<Mountain> nearbySet = getConnection(
 				"http://services.gisgraphy.com/geoloc/search?lat=" + lat
-						+ "&lng=" + lng + "&radius=" + radius + "&placetype=Mountain");
+						+ "&lng=" + lng + "&radius=" + radius + "&placetype=mountain&from=" + from + "&to=" + to + "&distance=true");
 
 		return nearbySet;
 

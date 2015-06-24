@@ -9,5 +9,5 @@ import java.util.List;
 public interface IGisService {
 
 	public List<Response> getCoordinatesFromLocation(String text) throws IOException;
-	public List<Mountain> getNearbyPlacesFromCoordinates(double lat, double lng, int radius) throws IOException;
+	public List<Mountain> getNearbyPlacesFromCoordinates(double lat, double lng, int radius, int from, int to) throws IOException;
 }
