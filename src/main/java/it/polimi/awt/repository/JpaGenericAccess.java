@@ -12,7 +12,7 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class JpaPhotoRepository implements PhotoRepository {
+public class JpaGenericAccess implements IJpaGenericAccess {
 
 	@PersistenceContext
 	private EntityManager em;

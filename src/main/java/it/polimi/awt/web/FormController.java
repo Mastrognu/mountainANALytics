@@ -5,9 +5,9 @@ import it.polimi.awt.domain.Photo;
 import it.polimi.awt.domain.QueryType;
 import it.polimi.awt.domain.Request;
 import it.polimi.awt.domain.Response;
-import it.polimi.awt.repository.PhotoRepository;
+import it.polimi.awt.repository.IJpaGenericAccess;
 import it.polimi.awt.services.IGisService;
-import it.polimi.awt.services.IPhotoService;
+import it.polimi.awt.services.IJpaService;
 import it.polimi.awt.services.ISocialNetwork;
 
 import java.io.IOException;
@@ -24,13 +24,13 @@ public class FormController {
 	ISocialNetwork sni;
 
 	@Autowired
-	IPhotoService photoService;
+	IJpaService photoService;
 
 	@Autowired
 	IGisService gisService;
 
 	@Autowired
-	PhotoRepository photoRepository;
+	IJpaGenericAccess hibernateAccess;
 
 	private static final int RADIUS = 20000; //meters
 
@@ -46,7 +46,7 @@ public class FormController {
 					List<Mountain> newList = gisService.getNearbyPlacesFromCoordinates(resp.getLatitude(), resp.getLongitude(), RADIUS);
 					for (Mountain newResp : newList) {
 						System.out.println("Query per montagna " + newResp);
-						photoRepository.mountainInDb(newResp);
+						hibernateAccess.mountainInDb(newResp);
 					}
 				}
 			}
