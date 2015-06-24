@@ -11,7 +11,7 @@ import it.polimi.awt.services.IJpaService;
 import it.polimi.awt.services.ISocialNetwork;
 
 import java.io.IOException;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +48,7 @@ public class FormController {
 			System.out.println("Response list = " + responseList);
 			//TODO Attualmente cerchiamo solo le montagne vicino all city, ha senso cercare anche le montagne vicino a una montagna?
 			if (responseList.get(0).getType().equals(QueryType.CITY)) {
-				List<Mountain> allMountainsNearCity = new LinkedList<Mountain>();
+				List<Mountain> allMountainsNearCity = new ArrayList<Mountain>();
 				for (Response resp : responseList) {
 					// Lista di montagne vicine ad ogni city
 					List<Mountain> mountainsNearCity = gisService.getNearbyPlacesFromCoordinates(resp.getLatitude(), resp.getLongitude(), RADIUS, from, to);
@@ -61,7 +61,7 @@ public class FormController {
 						//TODO E se mettessimo un wait(), riusciamo a superare il limite di 6 chiamate rest?
 					}
 					System.out.println("List size == " + allMountainsNearCity.size());
-					List<Mountain> allMountainsFoundInDb = new LinkedList<Mountain>();
+					List<Mountain> allMountainsFoundInDb = new ArrayList<Mountain>();
 					for (Mountain mountain : allMountainsNearCity) {
 //						System.out.println("Query per montagna " + mountain);
 						List<Mountain> mountainsFoundInDb = hibernateAccess.mountainInDb(mountain);

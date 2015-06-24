@@ -7,6 +7,7 @@ import it.polimi.awt.domain.Response;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class XMLUtils {
 
 		NodeList nList = doc.getElementsByTagName("doc");
 
-		List<Response> responseList = new LinkedList<Response>();
+		List<Response> responseList = new ArrayList<Response>();
 
 		for (int temp = 0; temp < nList.getLength(); temp++) {
 			Node nNode = nList.item(temp);
@@ -83,7 +84,7 @@ public class XMLUtils {
 
 		NodeList nList = doc.getElementsByTagName("result");
 
-		List<Mountain> mountainList = new LinkedList<Mountain>();
+		List<Mountain> mountainList = new ArrayList<Mountain>();
 
 		for(int temp = 0; temp < nList.getLength(); temp++) {
 			Node nNode = nList.item(temp);
