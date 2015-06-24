@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class FormController {
 	@Autowired
-	ISocialNetwork sni;
+	ISocialNetwork socialNetwork;
 
 	@Autowired
 	IJpaService photoService;
@@ -44,34 +44,34 @@ public class FormController {
 	public String addQueryFromForm(Request request) {
 		// Va fatto con l'injection, non come una semplice chiamata
 		try {
-			List<Response> lr = gisService.getCoordinatesFromLocation(request.getQuery());
-			System.out.println("BBBBB lr= "+lr);
-			//TODO Attualmente cerchiamo solo le montagne vicino all city, ha senso cercare anceh le montagne vicino a una montagna?
-			if (lr.get(0).getType().equals(QueryType.CITY)) {
+			List<Response> responseList = gisService.getCoordinatesFromLocation(request.getQuery());
+			System.out.println("Response list = " + responseList);
+			//TODO Attualmente cerchiamo solo le montagne vicino all city, ha senso cercare anche le montagne vicino a una montagna?
+			if (responseList.get(0).getType().equals(QueryType.CITY)) {
 				List<Mountain> allMountainsNearCity = new LinkedList<Mountain>();
-				for (Response resp : lr) {
+				for (Response resp : responseList) {
 					// Lista di montagne vicine ad ogni city
-					List<Mountain> newList = gisService.getNearbyPlacesFromCoordinates(resp.getLatitude(), resp.getLongitude(), RADIUS, from, to);
-					allMountainsNearCity.addAll(newList);
-					while (newList.size() == MAX_NUM_OF_ELEMENTS_IN_LIST && from <= MAX_FROM && to <= MAX_TO) {
+					List<Mountain> mountainsNearCity = gisService.getNearbyPlacesFromCoordinates(resp.getLatitude(), resp.getLongitude(), RADIUS, from, to);
+					allMountainsNearCity.addAll(mountainsNearCity);
+					while (mountainsNearCity.size() == MAX_NUM_OF_ELEMENTS_IN_LIST && from <= MAX_FROM && to <= MAX_TO) {
 						from+=10;
 						to+=10;
-						newList = gisService.getNearbyPlacesFromCoordinates(resp.getLatitude(), resp.getLongitude(), RADIUS, from, to);
-						allMountainsNearCity.addAll(newList);
+						mountainsNearCity = gisService.getNearbyPlacesFromCoordinates(resp.getLatitude(), resp.getLongitude(), RADIUS, from, to);
+						allMountainsNearCity.addAll(mountainsNearCity);
 						//TODO E se mettessimo un wait(), riusciamo a superare il limite di 6 chiamate rest?
 					}
-					System.out.println("List size == "+allMountainsNearCity.size());
+					System.out.println("List size == " + allMountainsNearCity.size());
 					List<Mountain> allMountainsFoundInDb = new LinkedList<Mountain>();
 					for (Mountain mountain : allMountainsNearCity) {
 //						System.out.println("Query per montagna " + mountain);
-						List<Mountain> mountainFoundInDb = hibernateAccess.mountainInDb(mountain);
-						allMountainsFoundInDb.addAll(mountainFoundInDb);
+						List<Mountain> mountainsFoundInDb = hibernateAccess.mountainInDb(mountain);
+						allMountainsFoundInDb.addAll(mountainsFoundInDb);
 					}
 					for (Mountain m : allMountainsFoundInDb)
-						System.out.println("Mountain in db :" +m);
+						System.out.println("Mountain in db :" + m);
 				}
 			}
-//			request.setResponse(sni.sendTagsRequest(request.getQuery()));
+//			request.setResponse(socialNetwork.sendTagsRequest(request.getQuery()));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -81,27 +81,11 @@ public class FormController {
 
 	@RequestMapping(value = "/selection", method = RequestMethod.POST)
 	public String saveUrlFromForm(Photo photo) {
-
-		// System.out.println("URL= "+url);
-		// System.out.println("NEWURL= "+URLUtils.urlFormatter(url));
-		// photo.setPhotoID(new Random().nextInt(65536));
-		// photo.setUrl(url);
-
+		//TODO Problema con l'ID della photo passata come parametro
 		Photo photo2 = new Photo();
-		//TODO CHE TETTE ENORMI!
 		photo2.setUrl(photo.getUrl());
 		photoService.insertPhoto(photo2);
 
 		return "saved";
-
-		// @RequestMapping(value="/selection")
-		// public String saveUrlFromForm(Photo photo) {
-		//
-		// System.out.println(photo.getUrl());
-		// String saved = "Saved";
-		// photoService.insertPhoto(photo);
-		//
-		// return saved;
-		//
 	}
 }

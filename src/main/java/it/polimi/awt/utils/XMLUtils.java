@@ -7,7 +7,6 @@ import it.polimi.awt.domain.Response;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.StringReader;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,16 +19,15 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 public class XMLUtils {
 
 	/**
 	 * If XML main node is 'doc', use this method
-	 * @param xml
-	 * @param queryType
-	 * @return
+	 * @param xml The string representation of the XML structure
+	 * @param queryType The type of query to perform
+	 * @return A list of responses with 'name', 'lat' and 'lng'
 	 * @throws ParserConfigurationException
 	 * @throws IOException
 	 * @throws SAXException
@@ -37,7 +35,7 @@ public class XMLUtils {
 	public static List<Response> parseFromGeolocalization(String xml, QueryType queryType) throws ParserConfigurationException, IOException, SAXException {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = factory.newDocumentBuilder();
-		InputSource is = new InputSource(new StringReader(xml));
+		InputStream is = new ByteArrayInputStream(xml.getBytes("UTF-8"));
 		Document doc = builder.parse(is);
 		doc.getDocumentElement().normalize();
 
@@ -70,9 +68,8 @@ public class XMLUtils {
 
 	/**
 	 * If XML main node is 'result', use this method
-	 * @param xml
-	 * @param queryType
-	 * @return
+	 * @param xml The string representation of the XML structure
+	 * @return A list of mountains with 'name', 'lat' and 'lng'
 	 * @throws ParserConfigurationException
 	 * @throws IOException
 	 * @throws SAXException
@@ -80,7 +77,6 @@ public class XMLUtils {
 	public static List<Mountain> parseFromGetNearby(String xml) throws ParserConfigurationException, IOException, SAXException {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = factory.newDocumentBuilder();
-//		InputSource is = new InputSource(new StringReader(xml));
 		InputStream is = new ByteArrayInputStream(xml.getBytes("UTF-8"));
 		Document doc = builder.parse(is);
 		doc.getDocumentElement().normalize();
