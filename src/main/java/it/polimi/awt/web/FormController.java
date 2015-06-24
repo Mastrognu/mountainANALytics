@@ -67,11 +67,12 @@ public class FormController {
 						List<Mountain> mountainsFoundInDb = hibernateAccess.mountainInDb(mountain);
 						allMountainsFoundInDb.addAll(mountainsFoundInDb);
 					}
-					for (Mountain m : allMountainsFoundInDb)
+					for (Mountain m : allMountainsFoundInDb) {
 						System.out.println("Mountain in db :" + m);
+						request.setResponse(socialNetwork.sendTagsRequest(m.getName()));
+					}
 				}
 			}
-//			request.setResponse(socialNetwork.sendTagsRequest(request.getQuery()));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
