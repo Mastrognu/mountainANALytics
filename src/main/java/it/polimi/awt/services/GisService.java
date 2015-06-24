@@ -43,8 +43,7 @@ public class GisService implements IGisService {
 
 		List<Mountain> nearbySet = getConnection(
 				"http://services.gisgraphy.com/geoloc/search?lat=" + lat
-						+ "&lng=" + lng + "&radius=" + radius + "&country=IT"
-						+ "&placetype=Mountain");
+						+ "&lng=" + lng + "&radius=" + radius + "&placetype=Mountain");
 
 		return nearbySet;
 

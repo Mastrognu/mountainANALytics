@@ -4,7 +4,9 @@ import it.polimi.awt.domain.Mountain;
 import it.polimi.awt.domain.QueryType;
 import it.polimi.awt.domain.Response;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringReader;
 import java.util.LinkedList;
 import java.util.List;
@@ -78,7 +80,8 @@ public class XMLUtils {
 	public static List<Mountain> parseFromGetNearby(String xml) throws ParserConfigurationException, IOException, SAXException {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = factory.newDocumentBuilder();
-		InputSource is = new InputSource(new StringReader(xml));
+//		InputSource is = new InputSource(new StringReader(xml));
+		InputStream is = new ByteArrayInputStream(xml.getBytes("UTF-8"));
 		Document doc = builder.parse(is);
 		doc.getDocumentElement().normalize();
 

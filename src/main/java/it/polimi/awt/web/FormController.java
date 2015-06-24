@@ -45,6 +45,7 @@ public class FormController {
 					// Lista di montagne vicine ad ogni city
 					List<Mountain> newList = gisService.getNearbyPlacesFromCoordinates(resp.getLatitude(), resp.getLongitude(), RADIUS);
 					for (Mountain newResp : newList) {
+						System.out.println("Query per montagna " + newResp);
 						photoRepository.mountainInDb(newResp);
 					}
 				}
