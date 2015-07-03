@@ -9,4 +9,5 @@ public interface IJpaGenericAccess {
 
 	public void insertPhoto(Photo photo);
 	public List<Mountain> mountainInDb(Mountain mquery);
+	public boolean isThisQueryAProvince(String queryText);
 }

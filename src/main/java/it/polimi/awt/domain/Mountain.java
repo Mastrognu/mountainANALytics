@@ -9,8 +9,7 @@ import javax.persistence.Table;
 @Table(name = "mountain")
 public class Mountain {
 
-	@Id
-	private String mountainID;
+	@Id private int mountainID;
 	@Column(unique = true) private String name;
 	private double latitude;
 	private double longitude;
@@ -34,11 +33,11 @@ public class Mountain {
 		this.drop = drop;
 	}
 
-	public String getMountainID() {
+	public int getMountainID() {
 		return mountainID;
 	}
 
-	public void setMountainID(String mountainID) {
+	public void setMountainID(int mountainID) {
 		this.mountainID = mountainID;
 	}
 

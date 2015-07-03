@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -20,20 +21,20 @@ import org.xml.sax.SAXException;
 @Service
 public class GisService implements IGisService {
 
-	public List<Response> getCoordinatesFromLocation(String text)
-			throws IOException {
-		List<Response> listMountain = getConnection(
-				"http://services.gisgraphy.com/fulltext/fulltextsearch?q="
-						+ text.toLowerCase().replace(" ", "%20")
-						+ "&country=IT" + "&placetype=Mountain",
-				QueryType.MOUNTAIN);
+	public List<Response> getCoordinatesFromLocation(String text, boolean provinceFlag) throws IOException {
+		List<Response> listMountain = new ArrayList<Response>();
+		if(!provinceFlag) {
+			listMountain = getConnection(
+					"http://services.gisgraphy.com/fulltext/fulltextsearch?q="
+							+ text.toLowerCase().replace(" ", "%20")
+							+ "&country=IT" + "&placetype=Mountain",
+							QueryType.MOUNTAIN);
+		}
 		List<Response> listCity = getConnection(
 				"http://services.gisgraphy.com/fulltext/fulltextsearch?q="
 						+ text.toLowerCase().replace(" ", "%20")
 						+ "&country=IT" + "&placetype=City", QueryType.CITY);
-		// TODO in qualche modo col parser xml bisogna dire che se c'è una
-		// montagna allora si ritorn quella, se no la city pertinente, che di
-		// solito è la prima si manda al nearby
+		System.out.println("ListMountain size: " + listMountain.size() + " ListCity size: " + listCity.size());
 		if (listMountain.size() > 0)
 			return listMountain;
 		return listCity;
@@ -41,15 +42,14 @@ public class GisService implements IGisService {
 
 	public List<Mountain> getNearbyPlacesFromCoordinates(double lat, double lng, int radius, int from, int to) throws IOException {
 
-		List<Mountain> nearbySet = getConnection(
-				"http://services.gisgraphy.com/geoloc/search?lat=" + lat
-						+ "&lng=" + lng + "&radius=" + radius + "&placetype=mountain&from=" + from + "&to=" + to + "&distance=true");
-
+		List<Mountain> nearbySet = getConnection("http://services.gisgraphy.com/geoloc/search?lat="
+				+ lat + "&lng="	+ lng + "&radius=" + radius	+ "&placetype=mountain&from="
+				+ from + "&to=" + to+ "&distance=true");
 		return nearbySet;
-
 	}
 
-	private List<Response> getConnection(String url, QueryType queryType) throws IOException {
+	private List<Response> getConnection(String url, QueryType queryType)
+			throws IOException {
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
@@ -87,7 +87,8 @@ public class GisService implements IGisService {
 		System.out.println("Sending 'GET' request to URL : " + url);
 		System.out.println("Response Code : " + con.getResponseCode());
 
-		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		BufferedReader in = new BufferedReader(new InputStreamReader(
+				con.getInputStream()));
 		StringBuilder restpost = new StringBuilder();
 
 		String tmp;
