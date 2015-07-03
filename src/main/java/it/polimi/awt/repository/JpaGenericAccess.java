@@ -26,7 +26,7 @@ public class JpaGenericAccess implements IJpaGenericAccess {
 		TypedQuery<Mountain> tqm = em.createQuery("SELECT m FROM Mountain m WHERE name LIKE :name", Mountain.class);
 		List<Mountain> list = tqm.setParameter("name", "%" + mquery.getName() + "%").getResultList();
 		for (Mountain m : list)
-			System.out.println("DB Mountain = "+ m);
+			System.out.println("Mountain found in db = "+ m);
 		return list;
 	}
 
@@ -38,10 +38,8 @@ public class JpaGenericAccess implements IJpaGenericAccess {
 	public boolean isThisQueryAProvince(String queryText) {
 		TypedQuery<Province> tqp = em.createQuery("SELECT p FROM Province p WHERE name LIKE :name", Province.class);
 		List<Province> list = tqp.setParameter("name", "%" + queryText + "%").getResultList();
-		if (list.size() > 0) {
-			System.out.println("DB Province = " + list.get(0));
+		if (list.size() > 0)
 			return true;
-		}
 		return false;
 	}
 }

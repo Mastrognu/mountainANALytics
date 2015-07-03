@@ -96,9 +96,8 @@ public class XMLUtils {
 			}
 			mountainList.add(mount);
 		}
-		System.out.println("Ciao, ho riempito la lista con "+mountainList.size()+" elementi");
 		for(Mountain m : mountainList)
-			System.out.println(m.toString());
+			System.out.println(">>Mountain from parser: " + m.toString());
 		return mountainList;
 	}
 }

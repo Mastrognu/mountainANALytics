@@ -37,8 +37,6 @@ public class FormController {
 	private static final int MAX_NUM_OF_ELEMENTS_IN_LIST = 10;
 	private static final int MAX_FROM = 31; // Limitazione di Gisgraphy
 	private static final int MAX_TO = 40; // Limitazione di Gisgraphy
-	private int from = 1;
-	private int to = 10;
 
 	@RequestMapping("/view")
 	public String addQueryFromForm(Request request) {
@@ -59,27 +57,33 @@ public class FormController {
 			}
 			System.out.println("Response list = " + responseList);
 			//TODO Attualmente cerchiamo solo le montagne vicino alle city, ha senso cercare anche le montagne vicino a una montagna?
+			/*
+			 * Di tutta a lista di città consideriamo solo la prima perchè è la
+			 * città più importante aka quella che probabilmente ha cercato l'utente
+			 */
 			if (responseList.get(0).getType().equals(QueryType.CITY)) {
+				Response city = responseList.get(0);
 				List<Mountain> allMountainsNearCity = new ArrayList<Mountain>();
-				List<Mountain> mountainsNearCity = gisService.getNearbyPlacesFromCoordinates(responseList.get(0).getLatitude(), responseList.get(0).getLongitude(), RADIUS, from, to);
+				int from = 0;
+				int to = 0;
+
+				List<Mountain> mountainsNearCity = gisService.getNearbyPlacesFromCoordinates(city.getLatitude(), city.getLongitude(), RADIUS, from, to);
 				allMountainsNearCity.addAll(mountainsNearCity);
 				while (mountainsNearCity.size() == MAX_NUM_OF_ELEMENTS_IN_LIST && from <= MAX_FROM && to <= MAX_TO) {
 					from+=10;
 					to+=10;
-					mountainsNearCity = gisService.getNearbyPlacesFromCoordinates(responseList.get(0).getLatitude(), responseList.get(0).getLongitude(), RADIUS, from, to);
+					mountainsNearCity = gisService.getNearbyPlacesFromCoordinates(city.getLatitude(), city.getLongitude(), RADIUS, from, to);
 					allMountainsNearCity.addAll(mountainsNearCity);
 					//TODO E se mettessimo un wait(), riusciamo a superare il limite di 6 chiamate rest?
 				}
-				System.out.println(">>>>>>>>>< List size == " + allMountainsNearCity.size());
+				System.out.println("Montagne vicine a " + city.getName() + ": " + allMountainsNearCity.size());
 				//TODO E' giusto fare tutti questo lavoro all'interno del controller?
 				List<Mountain> allMountainsFoundInDb = new ArrayList<Mountain>();
 				for (Mountain mountain : allMountainsNearCity) {
-//					System.out.println("Query per montagna " + mountain);
 					List<Mountain> mountainsFoundInDb = hibernateAccess.mountainInDb(mountain);
 					allMountainsFoundInDb.addAll(mountainsFoundInDb);
 				}
 				for (Mountain m : allMountainsFoundInDb) {
-					System.out.println("Mountain in db :" + m);
 					request.setResponse(socialNetwork.sendTagsRequest(m.getName()));
 				}
 				/*

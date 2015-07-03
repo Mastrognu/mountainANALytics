@@ -47,7 +47,7 @@ public class FlickrRQ implements ISocialNetwork {
 		if ((tmp = in.readLine()) != null)
 			response.append(tmp);
 
-		System.out.println(response.toString());
+		System.out.println(">>FlickrRQ response: " + response.toString());
 
 		JSONUtils parser = new JSONUtils();
 		JsonFactory jsonF = new JsonFactory();

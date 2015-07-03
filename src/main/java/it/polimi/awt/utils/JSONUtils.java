@@ -44,7 +44,7 @@ public class JSONUtils {
 			}
 			if (farm != "" && id != "" && server !="" && secret !="") {
 				result.add(index, "https://farm"+farm+".staticflickr.com/"+server+"/"+id+"_"+secret+"_n.jpg");
-				System.out.println(result.get(index));
+				System.out.println("Flickr photo url: " + result.get(index));
 				index++;
 			}
 		}
