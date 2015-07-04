@@ -3,11 +3,7 @@ package it.polimi.awt.services;
 import it.polimi.awt.utils.JSONUtils;
 import it.polimi.awt.utils.URLUtils;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -31,28 +27,14 @@ public class FlickrRQ implements ISocialNetwork {
 	}
 
 	private List<String> getConnection(String url) throws IOException {
-		URL obj = new URL(url);
-		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
- 
-		con.setRequestMethod("GET");
- 
-		int responseCode = con.getResponseCode();
-		System.out.println("Sending 'GET' request to URL : " + url);
-		System.out.println("Response Code : " + responseCode);
- 
-		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-		StringBuilder response = new StringBuilder();
- 
-		String tmp;
-		if ((tmp = in.readLine()) != null)
-			response.append(tmp);
+		String response = URLUtils.startGetConnection(url);
 
-		System.out.println(">>FlickrRQ response: " + response.toString());
+		System.out.println(">>FlickrRQ response: " + response);
 
 		JSONUtils parser = new JSONUtils();
 		JsonFactory jsonF = new JsonFactory();
 		@SuppressWarnings("deprecation")
-		JsonParser jp = jsonF.createJsonParser(response.toString());
+		JsonParser jp = jsonF.createJsonParser(response);
 		List<String> entry = parser.readFlickr(jp);
 
 		System.out.println(entry.size());

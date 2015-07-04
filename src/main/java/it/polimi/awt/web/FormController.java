@@ -40,7 +40,7 @@ public class FormController {
 
 	@RequestMapping("/view")
 	public String addQueryFromForm(Request request) {
-		//TODO Va fatto con l'injection, non come una semplice chiamata
+		// Va fatto con l'injection, non come una semplice chiamata
 		try {
 			/*
 			 * Se la ricerca è basata sul nome di una città capoluogo di provincia,
@@ -50,12 +50,12 @@ public class FormController {
 			 */
 			List<Response> responseList;
 			//TODO Fa schifo farlo qui il controllo ma nel GisService non funziona
-			if (hibernateAccess.isThisQueryAProvince(request.getQuery()))
-				responseList = gisService.getCoordinatesFromLocation(request.getQuery(), true);
-			else
+			if (hibernateAccess.isThisQueryAProvince(request.getQuery())) {
+				responseList = gisService.getCoordinatesFromLocation(request.getQuery(), true); //
+			} else {
 				responseList = gisService.getCoordinatesFromLocation(request.getQuery(), false);
+			}
 			System.out.println("Response list = " + responseList);
-
 			//TODO Attualmente cerchiamo solo le montagne vicino alle city, ha senso cercare anche le montagne vicino a una montagna?
 			/*
 			 * Di tutta a lista di città consideriamo solo la prima perchè è la
@@ -82,8 +82,8 @@ public class FormController {
 				for (Mountain mountain : allMountainsNearCity) {
 					List<Mountain> mountainsFoundInDb = hibernateAccess.mountainInDb(mountain);
 					allMountainsFoundInDb.addAll(mountainsFoundInDb);
-					if (mountainsFoundInDb.size() > 0)
-						allMountainsNearCity.remove(mountain); // Rimuovendo la montagna trovata nel db la lista diventa di sole montagne NON presenti nel set di Fraternali
+//					if (mountainsFoundInDb.size() > 0)
+//						allMountainsNearCity.remove(mountain); // Rimuovendo la montagna trovata nel db la lista diventa di sole montagne NON presenti nel set di Fraternali
 				}
 				for (Mountain m : allMountainsFoundInDb) {
 					request.setResponse(socialNetwork.getPhotosURLs(m.getName()));

@@ -1,5 +1,11 @@
 package it.polimi.awt.utils;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import it.polimi.awt.services.FlickrRQ;
 
 public class URLUtils {
@@ -7,6 +13,26 @@ public class URLUtils {
 	private static final String FLICKR_BASE_URL = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=";
 	private static final String FLICKR_APPENDIX = "&format=json&nojsoncallback=1";
 	private static final String PANORAMIO_URL = "http://www.panoramio.com/map/get_panoramas.php?set=public";
+
+	public static String startGetConnection(String url) throws IOException {
+		URL obj = new URL(url);
+		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+		con.setRequestMethod("GET");
+
+		int responseCode = con.getResponseCode();
+		System.out.println("Sending 'GET' request to URL : " + url);
+		System.out.println("Response Code : " + responseCode);
+
+		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		StringBuilder response = new StringBuilder();
+
+		String tmp;
+		while ((tmp = in.readLine()) != null)
+			response.append(tmp);
+
+		return response.toString();
+	}
 
 	/**
 	 * 
