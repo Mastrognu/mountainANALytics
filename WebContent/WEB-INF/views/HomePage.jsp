@@ -7,11 +7,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Insert a query</title>
+<link href="search_style.css" rel="stylesheet" type="text/css">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
 	<spring:url value="/view" var="addQueryFromForm" />
 	<form action="${addQueryFromForm}" method="post">
-		Query: <input type="text" name="query" /><br /> 
+		Query: <input type="text" name="query" required="" /><br />
 		Please select a social network <br /> 
 		Flickr: <input type="checkbox" name="flikrOk" />
 		Panoramio: <input type="checkbox" name="panoramioOk" />
