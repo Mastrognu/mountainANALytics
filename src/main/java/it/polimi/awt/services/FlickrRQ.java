@@ -26,7 +26,7 @@ public class FlickrRQ implements ISocialNetwork {
 		return getConnection(FLICKR_TEST_URL);
 	}
 
-	public List<String> sendTagsRequest(String tags) throws IOException {
+	public List<String> getPhotosURLs(String tags) throws IOException {
 		return getConnection(URLUtils.getFlickrTagsURL(tags));
 	}
 

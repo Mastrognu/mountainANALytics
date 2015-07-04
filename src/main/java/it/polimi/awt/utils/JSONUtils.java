@@ -13,7 +13,7 @@ public class JSONUtils {
 
 	/**
 	 * 
-	 * @param jp The JSON to parse
+	 * @param jp The Flickr JSON to parse
 	 * @return A list of all the URLs of the photos contained in the parser
 	 * @throws IOException In case there is a problem in the JSON read/write operations
 	 */

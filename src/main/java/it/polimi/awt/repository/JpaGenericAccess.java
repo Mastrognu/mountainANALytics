@@ -30,11 +30,6 @@ public class JpaGenericAccess implements IJpaGenericAccess {
 		return list;
 	}
 
-	/**
-	 *
-	 * @param queryText The text to query in the province table
-	 * @return true if the text searched is a province city
-	 */
 	public boolean isThisQueryAProvince(String queryText) {
 		TypedQuery<Province> tqp = em.createQuery("SELECT p FROM Province p WHERE name LIKE :name", Province.class);
 		List<Province> list = tqp.setParameter("name", "%" + queryText + "%").getResultList();

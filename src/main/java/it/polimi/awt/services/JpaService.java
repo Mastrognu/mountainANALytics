@@ -15,14 +15,18 @@ import org.springframework.transaction.annotation.Transactional;
 public class JpaService implements IJpaService {
 
 	@Autowired
-	private IJpaGenericAccess photoRepository;
+	private IJpaGenericAccess jpa;
 
 	public void insertPhoto(Photo photo) {
-		photoRepository.insertPhoto(photo);
+		jpa.insertPhoto(photo);
 	}
 
 	public List<Mountain> mountainInDb(Mountain mquery) {
-		return photoRepository.mountainInDb(mquery);
+		return jpa.mountainInDb(mquery);
+	}
+
+	public boolean isThisQueryAProvince(String queryText) {
+		return jpa.isThisQueryAProvince(queryText);
 	}
 
 }

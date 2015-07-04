@@ -5,5 +5,11 @@ import java.util.List;
 
 public interface ISocialNetwork {
 
-	public List<String> sendTagsRequest(String tags) throws IOException;
+	/**
+	 *
+	 * @param tags The query performed by the user
+	 * @return A list of photos URLs related to the searched text
+	 * @throws IOException
+	 */
+	public List<String> getPhotosURLs(String tags) throws IOException;
 }

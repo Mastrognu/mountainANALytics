@@ -40,7 +40,7 @@ public class FormController {
 
 	@RequestMapping("/view")
 	public String addQueryFromForm(Request request) {
-		// Va fatto con l'injection, non come una semplice chiamata
+		//TODO Va fatto con l'injection, non come una semplice chiamata
 		try {
 			/*
 			 * Se la ricerca è basata sul nome di una città capoluogo di provincia,
@@ -50,12 +50,12 @@ public class FormController {
 			 */
 			List<Response> responseList;
 			//TODO Fa schifo farlo qui il controllo ma nel GisService non funziona
-			if (hibernateAccess.isThisQueryAProvince(request.getQuery())) {
-				responseList = gisService.getCoordinatesFromLocation(request.getQuery(), true); //
-			} else {
+			if (hibernateAccess.isThisQueryAProvince(request.getQuery()))
+				responseList = gisService.getCoordinatesFromLocation(request.getQuery(), true);
+			else
 				responseList = gisService.getCoordinatesFromLocation(request.getQuery(), false);
-			}
 			System.out.println("Response list = " + responseList);
+
 			//TODO Attualmente cerchiamo solo le montagne vicino alle city, ha senso cercare anche le montagne vicino a una montagna?
 			/*
 			 * Di tutta a lista di città consideriamo solo la prima perchè è la
@@ -82,36 +82,13 @@ public class FormController {
 				for (Mountain mountain : allMountainsNearCity) {
 					List<Mountain> mountainsFoundInDb = hibernateAccess.mountainInDb(mountain);
 					allMountainsFoundInDb.addAll(mountainsFoundInDb);
+					if (mountainsFoundInDb.size() > 0)
+						allMountainsNearCity.remove(mountain); // Rimuovendo la montagna trovata nel db la lista diventa di sole montagne NON presenti nel set di Fraternali
 				}
 				for (Mountain m : allMountainsFoundInDb) {
-					request.setResponse(socialNetwork.sendTagsRequest(m.getName()));
+					request.setResponse(socialNetwork.getPhotosURLs(m.getName()));
 				}
-				/*
-				for (Response resp : responseList) {
-					// Lista di montagne vicine ad ogni city
-					List<Mountain> mountainsNearCity = gisService.getNearbyPlacesFromCoordinates(resp.getLatitude(), resp.getLongitude(), RADIUS, from, to);
-					allMountainsNearCity.addAll(mountainsNearCity);
-					while (mountainsNearCity.size() == MAX_NUM_OF_ELEMENTS_IN_LIST && from <= MAX_FROM && to <= MAX_TO) {
-						from+=10;
-						to+=10;
-						mountainsNearCity = gisService.getNearbyPlacesFromCoordinates(resp.getLatitude(), resp.getLongitude(), RADIUS, from, to);
-						allMountainsNearCity.addAll(mountainsNearCity);
-						//TODO E se mettessimo un wait(), riusciamo a superare il limite di 6 chiamate rest?
-					}
-					System.out.println("List size == " + allMountainsNearCity.size());
-					//TODO E' giusto fare tutti questo lavoro all'interno del controller?
-					List<Mountain> allMountainsFoundInDb = new ArrayList<Mountain>();
-					for (Mountain mountain : allMountainsNearCity) {
-//						System.out.println("Query per montagna " + mountain);
-						List<Mountain> mountainsFoundInDb = hibernateAccess.mountainInDb(mountain);
-						allMountainsFoundInDb.addAll(mountainsFoundInDb);
-					}
-					for (Mountain m : allMountainsFoundInDb) {
-						System.out.println("Mountain in db :" + m);
-						request.setResponse(socialNetwork.sendTagsRequest(m.getName()));
-					}
-				}
-				*/
+				//TODO Mandare a FLickr anche le montagne in <allMountainsNearCity> e colorarle con un marker diverso
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
