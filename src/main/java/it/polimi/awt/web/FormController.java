@@ -79,16 +79,17 @@ public class FormController {
 				System.out.println("Montagne vicine a " + city.getName() + ": " + allMountainsNearCity.size());
 				//TODO E' giusto fare tutti questo lavoro all'interno del controller?
 				List<Mountain> allMountainsFoundInDb = new ArrayList<Mountain>();
+				List<Mountain> mountainsNotInDb = new ArrayList<Mountain>();
 				for (Mountain mountain : allMountainsNearCity) {
 					List<Mountain> mountainsFoundInDb = hibernateAccess.mountainInDb(mountain);
 					allMountainsFoundInDb.addAll(mountainsFoundInDb);
-//					if (mountainsFoundInDb.size() > 0)
-//						allMountainsNearCity.remove(mountain); // Rimuovendo la montagna trovata nel db la lista diventa di sole montagne NON presenti nel set di Fraternali
+					if (!(mountainsFoundInDb.size() > 0))
+						mountainsNotInDb.add(mountain);
 				}
 				for (Mountain m : allMountainsFoundInDb) {
 					request.setResponse(socialNetwork.getPhotosURLs(m.getName()));
 				}
-				//TODO Mandare a FLickr anche le montagne in <allMountainsNearCity> e colorarle con un marker diverso
+				//TODO Mandare a FLickr anche le montagne in <mountainsNotInDb> e colorarle con un marker diverso
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
