@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -100,9 +99,5 @@ public class XMLUtils {
 		for(Mountain m : mountainList)
 			System.out.println(">>Mountain from parser: " + m.toString());
 		return mountainList;
-	}
-
-	public Map<String, Double> getLatitudeLongitude(String photoID) throws ParserConfigurationException, IOException, SAXException {
-		return null;
 	}
 }

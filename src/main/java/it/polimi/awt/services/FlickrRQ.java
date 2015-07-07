@@ -1,5 +1,6 @@
 package it.polimi.awt.services;
 
+import it.polimi.awt.domain.Photo;
 import it.polimi.awt.utils.JSONUtils;
 import it.polimi.awt.utils.URLUtils;
 
@@ -33,12 +34,17 @@ public class FlickrRQ implements ISocialNetwork {
 
 		JSONUtils parser = new JSONUtils();
 		JsonFactory jsonF = new JsonFactory();
-		@SuppressWarnings("deprecation")
 		JsonParser jp = jsonF.createJsonParser(response);
 		List<String> entry = parser.readFlickr(jp);
 
 		System.out.println(entry.size());
 
 		return entry;
+	}
+
+	@Override
+	public Photo getPhotoInfo() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

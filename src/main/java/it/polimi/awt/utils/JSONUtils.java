@@ -1,6 +1,8 @@
 package it.polimi.awt.utils;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -52,4 +54,24 @@ public class JSONUtils {
 		return result;
 	}
 
+	public Map<Coordinates, Double> getLatitudeLongitude(JsonParser jp) throws IOException {
+		String latitude = "";
+		String longitude = "";
+
+		while (jp.nextToken() != JsonToken.END_OBJECT && jp.getCurrentName() != null) {
+			String fieldName = jp.getCurrentName();
+			jp.nextToken();
+			if (fieldName.equals("latitude"))
+				latitude = jp.getText();
+			else if (fieldName.equals("longitude"))
+				longitude = jp.getText();
+		}
+		jp.close();
+		Map<Coordinates, Double> map = new HashMap<Coordinates, Double>();
+		if (longitude != "" && latitude != "") {
+			map.put(Coordinates.LATITUDE, Double.valueOf(latitude));
+			map.put(Coordinates.LONGITUDE, Double.valueOf(longitude));
+		}
+		return map;
+	}
 }

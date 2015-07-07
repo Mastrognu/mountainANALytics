@@ -60,7 +60,6 @@ public class Province {
 
 	@Override
 	public String toString() {
-		return "Province [provinceID=" + provinceID + ", name=" + name
-				+ ", region=" + region + "]";
+		return "Province [provinceID=" + provinceID + ", name=" + name + ", region=" + region + "]";
 	}
 }

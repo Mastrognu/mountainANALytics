@@ -9,15 +9,22 @@ import it.polimi.awt.repository.IJpaGenericAccess;
 import it.polimi.awt.services.IGisService;
 import it.polimi.awt.services.IJpaService;
 import it.polimi.awt.services.ISocialNetwork;
+import it.polimi.awt.utils.Coordinates;
+import it.polimi.awt.utils.JSONUtils;
+import it.polimi.awt.utils.URLUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonParser;
 
 @Controller
 public class FormController {
@@ -91,10 +98,23 @@ public class FormController {
 						List<String> URLlist = socialNetwork.getPhotosURLs(m.getName());
 						List<Photo> photoList = new ArrayList<Photo>();
 						for (String url : URLlist) {
+							String response = URLUtils.startGetConnection(url);
+							JSONUtils parser = new JSONUtils();
+							JsonFactory jsonF = new JsonFactory();
+							JsonParser jp = jsonF.createJsonParser(response);
+							Map<Coordinates, Double> map = parser.getLatitudeLongitude(jp);
+
 							Photo photo = new Photo();
 							photo.setUrl(url);
-							photo.setLatitude(0.0);
-							photo.setLongitude(0.0);
+							//TODO Dobbiamo aggiungere l'user alla foto
+							// Se la foto ha gli attributi latitude e longitude
+							if (map.size() > 0) {
+								photo.setLatitude(map.get(Coordinates.LATITUDE));
+								photo.setLongitude(map.get(Coordinates.LONGITUDE));
+							} else {
+								photo.setLatitude(m.getLatitude());
+								photo.setLongitude(m.getLongitude());
+							}
 							photoList.add(photo);
 						}
 						request.setResponse(photoList);
