@@ -1,9 +1,9 @@
 package it.polimi.awt.repository;
 
-import java.util.List;
-
 import it.polimi.awt.domain.Mountain;
 import it.polimi.awt.domain.Photo;
+
+import java.util.List;
 
 public interface IJpaGenericAccess {
 
@@ -12,6 +12,7 @@ public interface IJpaGenericAccess {
 	 * @param photo The Photo to insert into the database
 	 */
 	public void insertPhoto(Photo photo);
+
 	/**
 	 * This method is used to know if a Mountain is part of the subset we have
 	 * in the database. Since it can happen to have more than one Mountain with
@@ -22,6 +23,7 @@ public interface IJpaGenericAccess {
 	 * @return A list of Mountain found in the database based on the input
 	 */
 	public List<Mountain> mountainInDb(Mountain mquery);
+
 	/**
 	 *
 	 * @param queryText The text to query in the province table

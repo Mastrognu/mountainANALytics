@@ -40,7 +40,7 @@ public class FormController {
 
 	@RequestMapping("/view")
 	public String addQueryFromForm(Request request) {
-		// Va fatto con l'injection, non come una semplice chiamata
+		//TODO Va fatto con l'injection, non come una semplice chiamata
 		try {
 			/*
 			 * Se la ricerca è basata sul nome di una città capoluogo di provincia,
@@ -51,7 +51,7 @@ public class FormController {
 			List<Response> responseList;
 			//TODO Fa schifo farlo qui il controllo ma nel GisService non funziona
 			if (hibernateAccess.isThisQueryAProvince(request.getQuery())) {
-				responseList = gisService.getCoordinatesFromLocation(request.getQuery(), true); //
+				responseList = gisService.getCoordinatesFromLocation(request.getQuery(), true);
 			} else {
 				responseList = gisService.getCoordinatesFromLocation(request.getQuery(), false);
 			}
@@ -86,10 +86,23 @@ public class FormController {
 					if (!(mountainsFoundInDb.size() > 0))
 						mountainsNotInDb.add(mountain);
 				}
-				for (Mountain m : allMountainsFoundInDb) {
-					request.setResponse(socialNetwork.getPhotosURLs(m.getName()));
+				if (allMountainsFoundInDb.size() > 0) {
+					for (Mountain m : allMountainsFoundInDb) {
+						List<String> URLlist = socialNetwork.getPhotosURLs(m.getName());
+						List<Photo> photoList = new ArrayList<Photo>();
+						for (String url : URLlist) {
+							Photo photo = new Photo();
+							photo.setUrl(url);
+							photo.setLatitude(0.0);
+							photo.setLongitude(0.0);
+							photoList.add(photo);
+						}
+						request.setResponse(photoList);
+					}
+					//TODO Mandare a Flickr anche le montagne in <mountainsNotInDb> e colorarle con un marker diverso, se ce n'è almeno una nel db
+				} else {
+					//TODO Che famo?
 				}
-				//TODO Mandare a FLickr anche le montagne in <mountainsNotInDb> e colorarle con un marker diverso
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

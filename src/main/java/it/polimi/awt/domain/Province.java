@@ -1,5 +1,6 @@
 package it.polimi.awt.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -8,9 +9,9 @@ import javax.persistence.Table;
 @Table(name = "province")
 public class Province {
 
-	@Id private String provinceID;
-	private String name;
-	private String region;
+	@Id @Column(nullable = false) private String provinceID;
+	@Column(nullable = false) private String name;
+	@Column(nullable = false) private String region;
 
 	public Province() {
 	}

@@ -10,16 +10,16 @@ import javax.persistence.Table;
 public class Mountain {
 
 	@Id private int mountainID;
-	@Column(unique = true) private String name;
-	private double latitude;
-	private double longitude;
+	@Column(nullable = false) private String name;
+	@Column(nullable = false) private double latitude;
+	@Column(nullable = false) private double longitude;
 	private int elevation;
 	private int drop;
 
 	public Mountain() {
 	}
 
-	public Mountain(String name, double latitude, double longitude){
+	public Mountain(String name, double latitude, double longitude) {
 		this.name = name;
 		this.latitude = latitude;
 		this.longitude = longitude;

@@ -5,7 +5,7 @@ import java.util.List;
 public class Request {
 
 	private String query;
-	private List<String> response;
+	private List<Photo> response;
 	private boolean flickrOk = true;
 	private boolean panoramioOk = true;
 
@@ -17,11 +17,11 @@ public class Request {
 		this.query = query;
 	}
 
-	public List<String> getResponse(){
+	public List<Photo> getResponse(){
 		return response;
 	}
 
-	public void setResponse(List<String> response){
+	public void setResponse(List<Photo> response){
 		this.response = response;
 	}
 
