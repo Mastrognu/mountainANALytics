@@ -2,6 +2,7 @@ package it.polimi.awt.repository;
 
 import it.polimi.awt.domain.Mountain;
 import it.polimi.awt.domain.Photo;
+import it.polimi.awt.domain.Province;
 
 import java.util.List;
 
@@ -27,7 +28,14 @@ public interface IJpaGenericAccess {
 	/**
 	 *
 	 * @param queryText The text to query in the province table
-	 * @return true if the text searched is a province city
+	 * @return The Province if found, null otherwise
 	 */
-	public boolean isThisQueryAProvince(String queryText);
+	public Province findProvinceInDb(String queryText);
+
+	/**
+	 *
+	 * @param mountainName
+	 * @return
+	 */
+	public Mountain findMountainInDb(String mountainName);
 }

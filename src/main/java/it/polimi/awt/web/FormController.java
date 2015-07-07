@@ -2,6 +2,7 @@ package it.polimi.awt.web;
 
 import it.polimi.awt.domain.Mountain;
 import it.polimi.awt.domain.Photo;
+import it.polimi.awt.domain.Province;
 import it.polimi.awt.domain.QueryType;
 import it.polimi.awt.domain.Request;
 import it.polimi.awt.domain.Response;
@@ -51,35 +52,38 @@ public class FormController {
 			 * Per risolvere il problema, controlliamo all'interno del db se la
 			 * ricerca è un capoluogo
 			 */
-			List<Response> responseList;
-			//TODO Fa schifo farlo qui il controllo ma nel GisService non funziona
-			if (hibernateAccess.isThisQueryAProvince(request.getQuery())) {
-				responseList = gisService.getCoordinatesFromLocation(request.getQuery(), true);
+			List<Response> responseList = new ArrayList<Response>();
+			if (hibernateAccess.findProvinceInDb(request.getQuery()) != null) {
+				Province province = hibernateAccess.findProvinceInDb(request.getQuery());
+				responseList.add(new Response(province.getName(), province.getLatitude(), province.getLongitude(), QueryType.CITY));
 			} else {
-				responseList = gisService.getCoordinatesFromLocation(request.getQuery(), false);
+				if (hibernateAccess.findMountainInDb(request.getQuery()) != null) {
+					Mountain mountain = hibernateAccess.findMountainInDb(request.getQuery());
+					responseList.add(new Response(mountain.getName(), mountain.getLatitude(), mountain.getLongitude(), QueryType.MOUNTAIN));
+				} else {
+					responseList = gisService.getCoordinatesFromLocation(request.getQuery(), false);
+				}
 			}
-			System.out.println("Response list = " + responseList);
 			//TODO Attualmente cerchiamo solo le montagne vicino alle city, ha senso cercare anche le montagne vicino a una montagna?
-			/*
-			 * Di tutta a lista di città consideriamo solo la prima perchè è la
-			 * città più importante aka quella che probabilmente ha cercato l'utente
-			 */
-			if (responseList.get(0).getType().equals(QueryType.CITY)) {
-				Response city = responseList.get(0);
+			for (Response response : responseList) {
+				/*
+				 * Di tutta la lista di città consideriamo solo la prima perchè è la
+				 * città più importante aka quella che probabilmente ha cercato l'utente
+				 */
 				List<Mountain> allMountainsNearCity = new ArrayList<Mountain>();
 				int from = 0;
 				int to = 0;
 
-				List<Mountain> mountainsNearCity = gisService.getNearbyPlacesFromCoordinates(city.getLatitude(), city.getLongitude(), RADIUS, from, to);
+				List<Mountain> mountainsNearCity = gisService.getNearbyPlacesFromCoordinates(response.getLatitude(), response.getLongitude(), RADIUS, from, to);
 				allMountainsNearCity.addAll(mountainsNearCity);
 				while (mountainsNearCity.size() == MAX_NUM_OF_ELEMENTS_IN_LIST && from <= MAX_FROM && to <= MAX_TO) {
 					from+=10;
 					to+=10;
-					mountainsNearCity = gisService.getNearbyPlacesFromCoordinates(city.getLatitude(), city.getLongitude(), RADIUS, from, to);
+					mountainsNearCity = gisService.getNearbyPlacesFromCoordinates(response.getLatitude(), response.getLongitude(), RADIUS, from, to);
 					allMountainsNearCity.addAll(mountainsNearCity);
 					//TODO E se mettessimo un wait(), riusciamo a superare il limite di 6 chiamate rest?
 				}
-				System.out.println("Montagne vicine a " + city.getName() + ": " + allMountainsNearCity.size());
+				System.out.println("Montagne vicine a " + response.getName() + ": " + allMountainsNearCity.size());
 				//TODO E' giusto fare tutti questo lavoro all'interno del controller?
 				List<Mountain> allMountainsFoundInDb = new ArrayList<Mountain>();
 				for (Mountain mountain : allMountainsNearCity)

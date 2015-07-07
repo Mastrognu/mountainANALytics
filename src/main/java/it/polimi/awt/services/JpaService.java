@@ -4,6 +4,7 @@ import java.util.List;
 
 import it.polimi.awt.domain.Mountain;
 import it.polimi.awt.domain.Photo;
+import it.polimi.awt.domain.Province;
 import it.polimi.awt.repository.IJpaGenericAccess;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,7 @@ public class JpaService implements IJpaService {
 		return jpa.mountainInDb(mquery);
 	}
 
-	public boolean isThisQueryAProvince(String queryText) {
-		return jpa.isThisQueryAProvince(queryText);
+	public Province isThisQueryAProvince(String queryText) {
+		return jpa.findProvinceInDb(queryText);
 	}
-
 }

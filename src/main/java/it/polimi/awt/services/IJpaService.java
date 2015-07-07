@@ -4,6 +4,7 @@ import java.util.List;
 
 import it.polimi.awt.domain.Mountain;
 import it.polimi.awt.domain.Photo;
+import it.polimi.awt.domain.Province;
 
 public interface IJpaService {
 
@@ -27,5 +28,5 @@ public interface IJpaService {
 	 * @param queryText The text to query in the Province table
 	 * @return true if the text searched is a Province city, else otherwise
 	 */
-	public boolean isThisQueryAProvince(String queryText);
+	public Province isThisQueryAProvince(String queryText);
 }
