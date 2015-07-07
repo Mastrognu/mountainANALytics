@@ -44,7 +44,6 @@ public class FormController {
 
 	@RequestMapping("/view")
 	public String addQueryFromForm(Request request) {
-		//TODO Va fatto con l'injection, non come una semplice chiamata
 		try {
 			/*
 			 * Se la ricerca è basata sul nome di una città capoluogo di provincia,
@@ -64,12 +63,7 @@ public class FormController {
 					responseList = gisService.getCoordinatesFromLocation(request.getQuery(), false);
 				}
 			}
-			//TODO Attualmente cerchiamo solo le montagne vicino alle city, ha senso cercare anche le montagne vicino a una montagna?
 			for (Response response : responseList) {
-				/*
-				 * Di tutta la lista di città consideriamo solo la prima perchè è la
-				 * città più importante aka quella che probabilmente ha cercato l'utente
-				 */
 				List<Mountain> allMountainsNearCity = new ArrayList<Mountain>();
 				int from = 0;
 				int to = 0;
@@ -84,7 +78,6 @@ public class FormController {
 					//TODO E se mettessimo un wait(), riusciamo a superare il limite di 6 chiamate rest?
 				}
 				System.out.println("Montagne vicine a " + response.getName() + ": " + allMountainsNearCity.size());
-				//TODO E' giusto fare tutti questo lavoro all'interno del controller?
 				List<Mountain> allMountainsFoundInDb = new ArrayList<Mountain>();
 				for (Mountain mountain : allMountainsNearCity)
 					allMountainsFoundInDb.addAll(hibernateAccess.mountainInDb(mountain));
