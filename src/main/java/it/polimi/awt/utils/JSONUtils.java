@@ -25,7 +25,7 @@ public class JSONUtils {
 
 		/*
 		 * Per motivi a me sconosciuti, i < 2N fa riempire la lista di N elementi, qualnque sia N.
-		 * Finchè non capisco come si faccia a sapere la lunghezza / dimensione del JsonParser, teniamolo così.
+		 * Finchè non capisco come si fetch a sapere la lunghezza / dimensione del JsonParser, teniamolo così.
 		 */
 		for (int i = 0; i < MAX_NUMBER_OF_PHOTOS; i++) {
 			String farm = "";
@@ -55,23 +55,26 @@ public class JSONUtils {
 	}
 
 	public Map<Coordinates, Double> getLatitudeLongitude(JsonParser jp) throws IOException {
-		String latitude = "";
-		String longitude = "";
-
-		while (jp.nextToken() != JsonToken.END_OBJECT && jp.getCurrentName() != null) {
-			String fieldName = jp.getCurrentName();
-			jp.nextToken();
-			if (fieldName.equals("latitude"))
-				latitude = jp.getText();
-			else if (fieldName.equals("longitude"))
-				longitude = jp.getText();
+		Map<Coordinates, Double> map = new HashMap<Coordinates, Double>();
+		
+		for (int i = 0; i < MAX_NUMBER_OF_PHOTOS; i++) {
+			String latitude = "";
+			String longitude = "";
+			
+			while (jp.nextToken() != JsonToken.END_OBJECT && jp.getCurrentName() != null) {
+				String fieldName = jp.getCurrentName();
+				jp.nextToken();
+				if (fieldName.equals("latitude"))
+					latitude = jp.getText();
+				else if (fieldName.equals("longitude"))
+					longitude = jp.getText();
+			}
+			if (longitude != "" && latitude != "") {
+				map.put(Coordinates.LATITUDE, Double.valueOf(latitude));
+				map.put(Coordinates.LONGITUDE, Double.valueOf(longitude));
+			}
 		}
 		jp.close();
-		Map<Coordinates, Double> map = new HashMap<Coordinates, Double>();
-		if (longitude != "" && latitude != "") {
-			map.put(Coordinates.LATITUDE, Double.valueOf(latitude));
-			map.put(Coordinates.LONGITUDE, Double.valueOf(longitude));
-		}
 		return map;
 	}
 }

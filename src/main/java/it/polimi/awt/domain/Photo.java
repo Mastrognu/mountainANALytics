@@ -65,4 +65,11 @@ public class Photo {
 	public void setMountainID(int mountainID) {
 		this.mountainID = mountainID;
 	}
+
+	@Override
+	public String toString() {
+		return "Photo [photoID=" + photoID + ", mountainID=" + mountainID
+				+ ", url=" + url + ", userID=" + userID + ", latitude="
+				+ latitude + ", longitude=" + longitude + "]";
+	}
 }

@@ -11,10 +11,11 @@ import it.polimi.awt.services.IJpaService;
 import it.polimi.awt.services.ISocialNetwork;
 import it.polimi.awt.utils.Coordinates;
 import it.polimi.awt.utils.JSONUtils;
-import it.polimi.awt.utils.URLUtils;
+import it.polimi.awt.utils.ConnectionUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -86,24 +87,16 @@ public class FormController {
 				System.out.println("Montagne vicine a " + city.getName() + ": " + allMountainsNearCity.size());
 				//TODO E' giusto fare tutti questo lavoro all'interno del controller?
 				List<Mountain> allMountainsFoundInDb = new ArrayList<Mountain>();
-				List<Mountain> mountainsNotInDb = new ArrayList<Mountain>();
-				for (Mountain mountain : allMountainsNearCity) {
-					List<Mountain> mountainsFoundInDb = hibernateAccess.mountainInDb(mountain);
-					allMountainsFoundInDb.addAll(mountainsFoundInDb);
-					if (!(mountainsFoundInDb.size() > 0))
-						mountainsNotInDb.add(mountain);
-				}
+				for (Mountain mountain : allMountainsNearCity)
+					allMountainsFoundInDb.addAll(hibernateAccess.mountainInDb(mountain));
+
 				if (allMountainsFoundInDb.size() > 0) {
-					for (Mountain m : allMountainsFoundInDb) {
+					for (Mountain m : allMountainsNearCity) {
 						List<String> URLlist = socialNetwork.getPhotosURLs(m.getName());
 						List<Photo> photoList = new ArrayList<Photo>();
 						for (String url : URLlist) {
-							String response = URLUtils.startGetConnection(url);
-							JSONUtils parser = new JSONUtils();
-							JsonFactory jsonF = new JsonFactory();
-							JsonParser jp = jsonF.createJsonParser(response);
-							Map<Coordinates, Double> map = parser.getLatitudeLongitude(jp);
-
+							Map<Coordinates, Double> map = new HashMap<Coordinates, Double>();
+							map = socialNetwork.getPhotoInfo(url);
 							Photo photo = new Photo();
 							photo.setUrl(url);
 							//TODO Dobbiamo aggiungere l'user alla foto
@@ -115,11 +108,11 @@ public class FormController {
 								photo.setLatitude(m.getLatitude());
 								photo.setLongitude(m.getLongitude());
 							}
+							System.out.println(">Photo: " + photo.toString());
 							photoList.add(photo);
 						}
 						request.setResponse(photoList);
 					}
-					//TODO Mandare a Flickr anche le montagne in <mountainsNotInDb> e colorarle con un marker diverso, se ce n'è almeno una nel db
 				} else {
 					//TODO Che famo?
 				}

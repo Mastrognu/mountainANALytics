@@ -8,9 +8,11 @@ import java.net.URL;
 
 import it.polimi.awt.services.FlickrRQ;
 
-public class URLUtils {
+public class ConnectionUtils {
 
-	private static final String FLICKR_BASE_URL = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=";
+	private static final String FLICKR_BASE_URL = "https://api.flickr.com/services/rest/";
+	private static final String PHOTO_SEARCH = "?method=flickr.photos.search&api_key=";
+	private static final String GEOLOCATION = "?method=flickr.photos.geo.getLocation";
 	private static final String FLICKR_APPENDIX = "&format=json&nojsoncallback=1";
 	private static final String PANORAMIO_URL = "http://www.panoramio.com/map/get_panoramas.php?set=public";
 
@@ -40,7 +42,7 @@ public class URLUtils {
 	 * @return The URL for the Flickr GET request
 	 */
 	public static String getFlickrTagsURL(String text) {
-		return FLICKR_BASE_URL + FlickrRQ.API_KEY + "&tags=" + text.toLowerCase().replace(" ", "+") + FLICKR_APPENDIX;
+		return FLICKR_BASE_URL + PHOTO_SEARCH + FlickrRQ.API_KEY + "&tags=" + text.toLowerCase().replace(" ", "+") + FLICKR_APPENDIX;
 	}
 
 	/**
@@ -55,6 +57,15 @@ public class URLUtils {
 	 */
 	public static String getPanoramioURL(int from, int to, int minx, int miny, int maxx, int maxy) {
 		return PANORAMIO_URL + "&from=" + from + "&to=" + to + "&minx=" + minx + "&miny=" + miny + "&maxx=" + maxx + "&maxy=" + maxy + "&size=medium&mapfilter=true";
+	}
+
+	/**
+	 *
+	 * @param photoID The id of the photo
+	 * @return The URL for the Flickr getGeolocation request
+	 */
+	public static String getURLLocation(String photoID) {
+		return FLICKR_BASE_URL + GEOLOCATION + "&api_key=" + FlickrRQ.API_KEY + "&photo_id=" + photoID + FLICKR_APPENDIX;
 	}
 
 	public static String urlFormatter(String url) {

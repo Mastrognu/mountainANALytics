@@ -3,7 +3,7 @@ package it.polimi.awt.services;
 import it.polimi.awt.domain.Mountain;
 import it.polimi.awt.domain.QueryType;
 import it.polimi.awt.domain.Response;
-import it.polimi.awt.utils.URLUtils;
+import it.polimi.awt.utils.ConnectionUtils;
 import it.polimi.awt.utils.XMLUtils;
 
 import java.io.IOException;
@@ -46,7 +46,7 @@ public class GisService implements IGisService {
 	}
 
 	private List<Response> getConnection(String url, QueryType queryType) throws IOException {
-		String restpost = URLUtils.startGetConnection(url);
+		String restpost = ConnectionUtils.startGetConnection(url);
 		List<Response> responseList = null;
 		try {
 			responseList = XMLUtils.parseFromGeolocalization(restpost, queryType);
@@ -61,7 +61,7 @@ public class GisService implements IGisService {
 	}
 
 	private List<Mountain> getConnection(String url) throws IOException {
-		String restpost = URLUtils.startGetConnection(url);
+		String restpost = ConnectionUtils.startGetConnection(url);
 		List<Mountain> responseList = null;
 		try {
 			responseList = XMLUtils.parseFromGetNearby(restpost);

@@ -1,11 +1,14 @@
 package it.polimi.awt.services;
 
 import it.polimi.awt.domain.Photo;
+import it.polimi.awt.utils.Coordinates;
 import it.polimi.awt.utils.JSONUtils;
-import it.polimi.awt.utils.URLUtils;
+import it.polimi.awt.utils.StringUtils;
+import it.polimi.awt.utils.ConnectionUtils;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -24,11 +27,19 @@ public class FlickrRQ implements ISocialNetwork {
 	}
 
 	public List<String> getPhotosURLs(String tags) throws IOException {
-		return getConnection(URLUtils.getFlickrTagsURL(tags));
+		return getConnection(ConnectionUtils.getFlickrTagsURL(tags));
+	}
+
+	public Map<Coordinates, Double> getPhotoInfo(String url) throws IOException {
+		String response = ConnectionUtils.startGetConnection(ConnectionUtils.getURLLocation(StringUtils.getPhotoIdFromURL(url)));
+		JSONUtils parser = new JSONUtils();
+		JsonFactory jsonF = new JsonFactory();
+		JsonParser jp = jsonF.createJsonParser(response);
+		return parser.getLatitudeLongitude(jp);
 	}
 
 	private List<String> getConnection(String url) throws IOException {
-		String response = URLUtils.startGetConnection(url);
+		String response = ConnectionUtils.startGetConnection(url);
 
 		System.out.println(">>FlickrRQ response: " + response);
 
@@ -40,11 +51,5 @@ public class FlickrRQ implements ISocialNetwork {
 		System.out.println(entry.size());
 
 		return entry;
-	}
-
-	@Override
-	public Photo getPhotoInfo() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }
