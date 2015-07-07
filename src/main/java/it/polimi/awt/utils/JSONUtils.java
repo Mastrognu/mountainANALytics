@@ -54,13 +54,19 @@ public class JSONUtils {
 		return result;
 	}
 
+	/**
+	 *
+	 * @param jp The Flickr JSON to parse
+	 * @return A map containing the latitude and longitude of the mountain
+	 * @throws IOException
+	 */
 	public Map<Coordinates, Double> getLatitudeLongitude(JsonParser jp) throws IOException {
 		Map<Coordinates, Double> map = new HashMap<Coordinates, Double>();
-		
+
 		for (int i = 0; i < MAX_NUMBER_OF_PHOTOS; i++) {
 			String latitude = "";
 			String longitude = "";
-			
+
 			while (jp.nextToken() != JsonToken.END_OBJECT && jp.getCurrentName() != null) {
 				String fieldName = jp.getCurrentName();
 				jp.nextToken();

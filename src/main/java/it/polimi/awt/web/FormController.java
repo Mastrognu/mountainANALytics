@@ -10,8 +10,6 @@ import it.polimi.awt.services.IGisService;
 import it.polimi.awt.services.IJpaService;
 import it.polimi.awt.services.ISocialNetwork;
 import it.polimi.awt.utils.Coordinates;
-import it.polimi.awt.utils.JSONUtils;
-import it.polimi.awt.utils.ConnectionUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,9 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonParser;
 
 @Controller
 public class FormController {

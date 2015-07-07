@@ -1,10 +1,9 @@
 package it.polimi.awt.services;
 
-import it.polimi.awt.domain.Photo;
+import it.polimi.awt.utils.ConnectionUtils;
 import it.polimi.awt.utils.Coordinates;
 import it.polimi.awt.utils.JSONUtils;
 import it.polimi.awt.utils.StringUtils;
-import it.polimi.awt.utils.ConnectionUtils;
 
 import java.io.IOException;
 import java.util.List;
