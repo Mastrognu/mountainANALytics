@@ -52,12 +52,12 @@ public class FormController {
 			 * ricerca è un capoluogo
 			 */
 			List<Response> responseList = new ArrayList<Response>();
-			if (hibernateAccess.findProvinceInDb(request.getQuery()) != null) {
-				Province province = hibernateAccess.findProvinceInDb(request.getQuery());
+			if (hibernateAccess.getProvince(request.getQuery()) != null) {
+				Province province = hibernateAccess.getProvince(request.getQuery());
 				responseList.add(new Response(province.getName(), province.getLatitude(), province.getLongitude(), QueryType.CITY));
 			} else {
-				if (hibernateAccess.findMountainInDb(request.getQuery()) != null) {
-					Mountain mountain = hibernateAccess.findMountainInDb(request.getQuery());
+				if (hibernateAccess.getMountain(request.getQuery()) != null) {
+					Mountain mountain = hibernateAccess.getMountain(request.getQuery());
 					responseList.add(new Response(mountain.getName(), mountain.getLatitude(), mountain.getLongitude(), QueryType.MOUNTAIN));
 				} else {
 					responseList = gisService.getCoordinatesFromLocation(request.getQuery(), false);
@@ -80,7 +80,7 @@ public class FormController {
 				System.out.println("Montagne vicine a " + response.getName() + ": " + allMountainsNearCity.size());
 				List<Mountain> allMountainsFoundInDb = new ArrayList<Mountain>();
 				for (Mountain mountain : allMountainsNearCity)
-					allMountainsFoundInDb.addAll(hibernateAccess.mountainInDb(mountain));
+					allMountainsFoundInDb.addAll(hibernateAccess.getMultiMountain(mountain));
 
 				if (allMountainsFoundInDb.size() > 0) {
 					for (Mountain m : allMountainsNearCity) {

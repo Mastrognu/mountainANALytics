@@ -23,10 +23,10 @@ public class JpaService implements IJpaService {
 	}
 
 	public List<Mountain> mountainInDb(Mountain mquery) {
-		return jpa.mountainInDb(mquery);
+		return jpa.getMultiMountain(mquery);
 	}
 
 	public Province isThisQueryAProvince(String queryText) {
-		return jpa.findProvinceInDb(queryText);
+		return jpa.getProvince(queryText);
 	}
 }

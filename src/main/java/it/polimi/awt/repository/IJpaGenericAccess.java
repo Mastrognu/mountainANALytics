@@ -23,19 +23,19 @@ public interface IJpaGenericAccess {
 	 * @param mquery The Mountain to find in the database
 	 * @return A list of Mountain found in the database based on the input
 	 */
-	public List<Mountain> mountainInDb(Mountain mquery);
+	public List<Mountain> getMultiMountain(Mountain mountain);
 
 	/**
 	 *
 	 * @param queryText The text to query in the province table
 	 * @return The Province if found, null otherwise
 	 */
-	public Province findProvinceInDb(String queryText);
+	public Province getProvince(String provinceName);
 
 	/**
 	 *
 	 * @param mountainName
 	 * @return
 	 */
-	public Mountain findMountainInDb(String mountainName);
+	public Mountain getMountain(String mountainName);
 }
