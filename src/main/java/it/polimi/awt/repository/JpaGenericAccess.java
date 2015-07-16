@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
@@ -23,7 +24,7 @@ public class JpaGenericAccess implements IJpaGenericAccess {
 	}
 
 	public List<Mountain> getMultiMountain(Mountain mountain) {
-		TypedQuery<Mountain> tqm = em.createQuery("SELECT m FROM Mountain m WHERE name LIKE :name", Mountain.class);
+		TypedQuery<Mountain> tqm = em.createNamedQuery("SELECT m FROM Mountain m WHERE name LIKE :name", Mountain.class);
 		List<Mountain> list = tqm.setParameter("name", "%" + mountain.getName() + "%").getResultList();
 		for (Mountain m : list)
 			System.out.println("Mountain found in db = "+ m);
@@ -31,11 +32,13 @@ public class JpaGenericAccess implements IJpaGenericAccess {
 	}
 
 	public Mountain getMountain(String mountainName) {
-		TypedQuery<Mountain> tqp = em.createQuery("SELECT m FROM Mountain m WHERE name LIKE :name", Mountain.class);
-		List<Mountain> list = tqp.setParameter("name", "%" + mountainName + "%").getResultList();
-		if (list.size() > 0)
-			return list.get(0);
-		return null;
+//		TypedQuery<Mountain> tqp = em.createQuery("SELECT m FROM Mountain m WHERE name LIKE :name", Mountain.class);
+//		List<Mountain> list = tqp.setParameter("name", "%" + mountainName + "%").getResultList();
+//		if (list.size() > 0)
+//			return list.get(0);
+//		return null;
+		Query q = em.createNamedQuery("findMountain");
+		return (Mountain) q.getResultList().get(0);
 	}
 
 	public Province getProvince(String provinceName) {
