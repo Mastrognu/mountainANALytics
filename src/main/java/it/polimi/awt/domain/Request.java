@@ -7,6 +7,9 @@ public class Request {
 
 	private String query;
 	private List<Photo> response = new ArrayList<Photo>();
+	private double queryLatitude;
+	private double queryLongitude;
+	private String queryName;
 	private boolean flickrOk = true;
 	private boolean panoramioOk = true;
 
@@ -40,6 +43,30 @@ public class Request {
 
 	public void setPanoramioOk(boolean panoramioOk) {
 		this.panoramioOk = panoramioOk;
+	}
+
+	public double getQueryLatitude() {
+		return queryLatitude;
+	}
+
+	public void setQueryLatitude(double queryLatitude) {
+		this.queryLatitude = queryLatitude;
+	}
+
+	public double getQueryLongitude() {
+		return queryLongitude;
+	}
+
+	public void setQueryLongitude(double queryLongitude) {
+		this.queryLongitude = queryLongitude;
+	}
+
+	public String getQueryName() {
+		return queryName;
+	}
+
+	public void setQueryName(String queryName) {
+		this.queryName = queryName;
 	}
 
 	public void addToResponse(List<Photo> photoList) {
