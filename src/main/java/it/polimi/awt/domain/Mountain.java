@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "mountain")
-@NamedQuery(name = "findMountain", query = "SELECT m FROM Mountain m WHERE name LIKE :name")
+@NamedQuery(name = "findMountain", query = "SELECT m FROM Mountain m WHERE m.name LIKE :name")
 public class Mountain {
 
 	@Id private int mountainID;

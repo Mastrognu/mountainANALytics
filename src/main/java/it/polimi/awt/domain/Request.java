@@ -1,11 +1,12 @@
 package it.polimi.awt.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Request {
 
 	private String query;
-	private List<Photo> response;
+	private List<Photo> response = new ArrayList<Photo>();
 	private boolean flickrOk = true;
 	private boolean panoramioOk = true;
 
@@ -39,5 +40,9 @@ public class Request {
 
 	public void setPanoramioOk(boolean panoramioOk) {
 		this.panoramioOk = panoramioOk;
-	}	
+	}
+
+	public void addToResponse(List<Photo> photoList) {
+		this.response.addAll(photoList);
+	}
 }

@@ -3,10 +3,12 @@ package it.polimi.awt.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "province")
+@NamedQuery(name = "findProvince", query = "SELECT p FROM Province p WHERE name LIKE :name")
 public class Province {
 
 	@Id @Column(nullable = false) private String provinceID;

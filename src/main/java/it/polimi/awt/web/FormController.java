@@ -14,7 +14,6 @@ import it.polimi.awt.utils.Coordinates;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,7 +36,7 @@ public class FormController {
 	@Autowired
 	IJpaGenericAccess hibernateAccess;
 
-	private static final int RADIUS = 20000; //meters
+	private static final int RADIUS = 10000; //meters
 	private static final int MAX_NUM_OF_ELEMENTS_IN_LIST = 10;
 	private static final int MAX_FROM = 31; // Limitazione di Gisgraphy
 	private static final int MAX_TO = 40; // Limitazione di Gisgraphy
@@ -87,11 +86,11 @@ public class FormController {
 						List<String> URLlist = socialNetwork.getPhotosURLs(m.getName());
 						List<Photo> photoList = new ArrayList<Photo>();
 						for (String url : URLlist) {
-							Map<Coordinates, Double> map = new HashMap<Coordinates, Double>();
-							map = socialNetwork.getPhotoInfo(url);
+							Map<Coordinates, Double> map = socialNetwork.getPhotoInfo(url);
 							Photo photo = new Photo();
+							photo.setMountainName(m.getName());
 							photo.setUrl(url);
-							//TODO Dobbiamo aggiungere l'user alla foto
+							//TODO photo.setUserID(userID);
 							// Se la foto ha gli attributi latitude e longitude
 							if (map.size() > 0) {
 								photo.setLatitude(map.get(Coordinates.LATITUDE));
@@ -103,7 +102,7 @@ public class FormController {
 							System.out.println(">Photo: " + photo.toString());
 							photoList.add(photo);
 						}
-						request.setResponse(photoList);
+						request.addToResponse(photoList);
 					}
 				} else {
 					//TODO Che famo?
@@ -113,12 +112,14 @@ public class FormController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println("--------- END OF STUFF ON CONTROLLER ------------------");
 		return "MapView";
 	}
 
 	@RequestMapping(value = "/selection", method = RequestMethod.POST)
 	public String saveUrlFromForm(Photo photo) {
 		//TODO Problema con l'ID della photo passata come parametro
+		System.out.println(">Foto ricevuta: " + photo);
 		Photo photo2 = new Photo();
 		photo2.setUrl(photo.getUrl());
 		photoService.insertPhoto(photo2);

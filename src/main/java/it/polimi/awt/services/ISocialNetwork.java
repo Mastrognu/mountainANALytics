@@ -1,6 +1,5 @@
 package it.polimi.awt.services;
 
-import it.polimi.awt.domain.Photo;
 import it.polimi.awt.utils.Coordinates;
 
 import java.io.IOException;

@@ -12,7 +12,7 @@ import javax.persistence.Table;
 public class Photo {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="photoID")private int photoID;
-	private int mountainID;
+	private String mountainName;
 	private String url;
 	private int userID;
 	private double latitude;
@@ -21,9 +21,9 @@ public class Photo {
 	public Photo() {
 	}
 
-	public Photo(int userID, int mountainID, String url, double latitude, double longitude) {
+	public Photo(int userID, String mountainName, String url, double latitude, double longitude) {
 		this.userID = userID;
-		this.mountainID = mountainID;
+		this.mountainName = mountainName;
 		this.url = url;
 		this.latitude = latitude;
 		this.longitude = longitude;
@@ -59,16 +59,16 @@ public class Photo {
 	public void setUserID(int userID) {
 		this.userID = userID;
 	}
-	public int getMountainID() {
-		return mountainID;
+	public String getMountainName() {
+		return mountainName;
 	}
-	public void setMountainID(int mountainID) {
-		this.mountainID = mountainID;
+	public void setMountainName(String mountainName) {
+		this.mountainName = mountainName;
 	}
 
 	@Override
 	public String toString() {
-		return "Photo [photoID=" + photoID + ", mountainID=" + mountainID
+		return "Photo [photoID=" + photoID + ", mountainID=" + mountainName
 				+ ", url=" + url + ", userID=" + userID + ", latitude="
 				+ latitude + ", longitude=" + longitude + "]";
 	}
