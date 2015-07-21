@@ -12,10 +12,41 @@
 <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
-	<spring:url value="/map" var="addQueryFromForm" />
+
+<div class="container">
+  
+  <h2>Search for Alps locality<small>Inputs</small></h2>
+ 
+ <spring:url value="/map" var="addQueryFromForm" /> 
+  <form action="${addQueryFromForm}" method="post">>
+    
+    <div class="group">      
+      <input type="text" name="query" required="" />
+      <span class="highlight"></span>
+      <span class="bar"></span>
+      <label>Search</label>
+    </div>
+      
+    <div class="group">      
+      <input type="submit" value="send" /> 
+      <span class="highlight"></span>
+      <span class="bar"></span>
+      <label>Send</label>
+    </div>
+    
+  </form>
+      
+  <p class="footer">
+    a <a href="http://scotch.io/tutorials/css/google-material-design-input-boxes-in-css3" target="_blank">tutorial</a> by <a href="http://scotch.io" target="_blank">scotch.io</a>
+  </p>
+  
+</div>
+
+
+<%-- 	<spring:url value="/map" var="addQueryFromForm" />
 	<form action="${addQueryFromForm}" method="post">
 		Query: <input type="text" name="query" required="" /><br />
 		<input type="submit" value="send" /> 
-	</form>
+	</form> --%>
 </body>
 </html>
