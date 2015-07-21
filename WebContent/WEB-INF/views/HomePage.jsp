@@ -15,9 +15,6 @@
 	<spring:url value="/view" var="addQueryFromForm" />
 	<form action="${addQueryFromForm}" method="post">
 		Query: <input type="text" name="query" required="" /><br />
-		Please select a social network <br /> 
-		Flickr: <input type="checkbox" name="flikrOk" />
-		Panoramio: <input type="checkbox" name="panoramioOk" />
 		<input type="submit" value="send" /> 
 	</form>
 

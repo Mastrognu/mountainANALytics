@@ -1,8 +1,7 @@
 package it.polimi.awt.utils;
 
 import it.polimi.awt.domain.Mountain;
-import it.polimi.awt.domain.QueryType;
-import it.polimi.awt.domain.Response;
+import it.polimi.awt.domain.GenericLocation;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -32,7 +31,7 @@ public class XMLUtils {
 	 * @throws IOException
 	 * @throws SAXException
 	 */
-	public static List<Response> parseFromGeolocalization(String xml, QueryType queryType) throws ParserConfigurationException, IOException, SAXException {
+	public static List<GenericLocation> parseFromGeolocalization(String xml) throws ParserConfigurationException, IOException, SAXException {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = factory.newDocumentBuilder();
 		InputStream is = new ByteArrayInputStream(xml.getBytes("UTF-8"));
@@ -41,13 +40,13 @@ public class XMLUtils {
 
 		NodeList nList = doc.getElementsByTagName("doc");
 
-		List<Response> responseList = new ArrayList<Response>();
+		List<GenericLocation> responseList = new ArrayList<GenericLocation>();
 
 		for (int temp = 0; temp < nList.getLength(); temp++) {
 			Node nNode = nList.item(temp);
 			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 				NodeList nl = nNode.getChildNodes();
-				Response response = new Response(queryType);
+				GenericLocation response = new GenericLocation();
 				for (int i = 0; i < nl.getLength(); i++) {
 					NamedNodeMap nnm = nl.item(i).getAttributes();
 					for (int j = 0; j < nnm.getLength(); j++) {

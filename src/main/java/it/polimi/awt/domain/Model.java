@@ -3,15 +3,13 @@ package it.polimi.awt.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Request {
+public class Model {
 
 	private String query;
 	private List<Photo> response = new ArrayList<Photo>();
 	private double queryLatitude;
 	private double queryLongitude;
 	private String queryName;
-	private boolean flickrOk = true;
-	private boolean panoramioOk = true;
 
 	public String getQuery(){
 		return query;
@@ -27,22 +25,6 @@ public class Request {
 
 	public void setResponse(List<Photo> response){
 		this.response = response;
-	}
-
-	public boolean isFlickrOk() {
-		return flickrOk;
-	}
-
-	public void setFlickrOk(boolean flickrOk) {
-		this.flickrOk = flickrOk;
-	}	
-
-	public boolean isPanoramioOk() {
-		return panoramioOk;
-	}
-
-	public void setPanoramioOk(boolean panoramioOk) {
-		this.panoramioOk = panoramioOk;
 	}
 
 	public double getQueryLatitude() {

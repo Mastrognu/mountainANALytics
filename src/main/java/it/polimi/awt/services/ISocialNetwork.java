@@ -15,5 +15,5 @@ public interface ISocialNetwork {
 	 * @throws IOException
 	 */
 	public List<String> getPhotosURLs(String tags) throws IOException;
-	public Map<Coordinates, Double> getPhotoInfo(String url) throws IOException;
+	public Map<Coordinates, Double> getExifLocation(String url) throws IOException;
 }

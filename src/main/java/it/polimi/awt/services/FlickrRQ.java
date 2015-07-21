@@ -29,11 +29,11 @@ public class FlickrRQ implements ISocialNetwork {
 		return getConnection(ConnectionUtils.getFlickrTagsURL(tags));
 	}
 
-	public Map<Coordinates, Double> getPhotoInfo(String url) throws IOException {
-		String response = ConnectionUtils.startGetConnection(ConnectionUtils.getURLLocation(StringUtils.getPhotoIdFromURL(url)));
+	public Map<Coordinates, Double> getExifLocation(String url) throws IOException {
+		String jsonToParse = ConnectionUtils.startGetConnection(ConnectionUtils.getURLLocation(StringUtils.getPhotoIdFromURL(url)));
 		JSONUtils parser = new JSONUtils();
 		JsonFactory jsonF = new JsonFactory();
-		JsonParser jp = jsonF.createJsonParser(response);
+		JsonParser jp = jsonF.createJsonParser(jsonToParse);
 		return parser.getLatitudeLongitude(jp);
 	}
 

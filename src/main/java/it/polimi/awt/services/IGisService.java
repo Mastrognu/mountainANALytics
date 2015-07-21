@@ -1,7 +1,8 @@
 package it.polimi.awt.services;
 
 import it.polimi.awt.domain.Mountain;
-import it.polimi.awt.domain.Response;
+import it.polimi.awt.domain.GenericLocation;
+import it.polimi.awt.exceptions.NoCityNoMountainException;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,8 +15,9 @@ public interface IGisService {
 	 * @param provinceFlag true if the user searched a city which is an Italian province, false otherwise
 	 * @return A list of Response from GisGraphy
 	 * @throws IOException
+	 * @throws NoCityNoMountainException
 	 */
-	public List<Response> getCoordinatesFromLocation(String text, boolean provinceFlag) throws IOException;
+	public GenericLocation getCoordinatesFromLocation(String text, boolean provinceFlag) throws IOException, NoCityNoMountainException;
 	/**
 	 *
 	 * @param lat Latitude of the place (in decimal)

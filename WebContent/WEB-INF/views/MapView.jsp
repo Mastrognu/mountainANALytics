@@ -49,8 +49,9 @@
 					      map: map,
 					      animation: google.maps.Animation.DROP,
 					      icon: 'https://google-developers.appspot.com/maps/documentation/javascript/examples/full/images/beachflag.png',
-					      title: '${request.queryName}'
-					  });				
+					      title: '${request.queryName}',
+					      zIndex: 10000
+					  });
 					var infowindow = new google.maps.InfoWindow({
 					      content: "<h1>"+'${request.queryName}'+"</h1>"
 					  });

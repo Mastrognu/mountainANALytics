@@ -1,13 +1,12 @@
 package it.polimi.awt.services;
 
 import it.polimi.awt.domain.Mountain;
-import it.polimi.awt.domain.QueryType;
-import it.polimi.awt.domain.Response;
+import it.polimi.awt.domain.GenericLocation;
+import it.polimi.awt.exceptions.NoCityNoMountainException;
 import it.polimi.awt.utils.ConnectionUtils;
 import it.polimi.awt.utils.XMLUtils;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -18,23 +17,26 @@ import org.xml.sax.SAXException;
 @Service
 public class GisService implements IGisService {
 
-	public List<Response> getCoordinatesFromLocation(String text, boolean provinceFlag) throws IOException {
-		List<Response> listMountain = new ArrayList<Response>();
+	public GenericLocation getCoordinatesFromLocation(String text, boolean provinceFlag) throws IOException, NoCityNoMountainException {
+		GenericLocation respMountain = null;
 		if(!provinceFlag) {
-			listMountain = getConnection(
+			respMountain = getResponseConnection(
 					"http://services.gisgraphy.com/fulltext/fulltextsearch?q="
 							+ text.toLowerCase().replace(" ", "%20")
-							+ "&country=IT" + "&placetype=Mountain",
-							QueryType.MOUNTAIN);
+							+ "&country=IT" + "&placetype=Mountain");
 		}
-		List<Response> listCity = getConnection(
+		GenericLocation respCity = getResponseConnection(
 				"http://services.gisgraphy.com/fulltext/fulltextsearch?q="
 						+ text.toLowerCase().replace(" ", "%20")
-						+ "&country=IT" + "&placetype=City", QueryType.CITY);
-		System.out.println("ListMountain size: " + listMountain.size() + " ListCity size: " + listCity.size());
-		if (listMountain.size() > 0)
-			return listMountain;
-		return listCity;
+						+ "&country=IT" + "&placetype=City");
+		/*
+		 * To avoid problems related to places that are called like mountains, if we found a mountain we return it instead of the city
+		 */
+		if (respMountain != null)
+			return respMountain;
+		else if (respCity != null)
+			return respCity;
+		else throw new NoCityNoMountainException();
 	}
 
 	public List<Mountain> getNearbyPlacesFromCoordinates(double lat, double lng, int radius, int from, int to) throws IOException {
@@ -45,11 +47,11 @@ public class GisService implements IGisService {
 		return nearbySet;
 	}
 
-	private List<Response> getConnection(String url, QueryType queryType) throws IOException {
+	private GenericLocation getResponseConnection(String url) throws IOException {
 		String restpost = ConnectionUtils.startGetConnection(url);
-		List<Response> responseList = null;
+		List<GenericLocation> responseList = null;
 		try {
-			responseList = XMLUtils.parseFromGeolocalization(restpost, queryType);
+			responseList = XMLUtils.parseFromGeolocalization(restpost);
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -57,7 +59,9 @@ public class GisService implements IGisService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return responseList;
+		if (responseList.size() > 0)
+			return responseList.get(0);
+		return null;
 	}
 
 	private List<Mountain> getConnection(String url) throws IOException {
