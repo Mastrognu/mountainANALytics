@@ -5,7 +5,6 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -13,45 +12,30 @@ import javax.persistence.Table;
 public class History implements Serializable {
 
 	private static final long serialVersionUID = 5117568888708854860L;
-	@Id @JoinColumn(name = "mountainID") private int mountainID;
-	@Id @JoinColumn(name = "photoID") private int photoID;
-	@Id @JoinColumn(name = "userID") private int userID;
-	private Date timestamp;
+
+	@Id private String userEmail;
+	@Id private Date timestamp;
+	private int photoID;
+	private String query;
 
 	public History() {
 		super();
 	}
 
-	public History(int mountainID, int photoID, int userID, Date timestamp) {
+	public History(String userEmail, Date timestamp, int photoID, String query) {
 		super();
-		this.mountainID = mountainID;
-		this.photoID = photoID;
-		this.userID = userID;
+		this.userEmail = userEmail;
 		this.timestamp = timestamp;
-	}
-
-	public int getMountainID() {
-		return mountainID;
-	}
-
-	public void setMountain(int mountainID) {
-		this.mountainID = mountainID;
-	}
-
-	public int getPhotoID() {
-		return photoID;
-	}
-
-	public void setPhotoID(int photoID) {
 		this.photoID = photoID;
+		this.query = query;
 	}
 
-	public int getUserID() {
-		return userID;
+	public String getUserEmail() {
+		return userEmail;
 	}
 
-	public void setUser(int userID) {
-		this.userID = userID;
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
 
 	public Date getTimestamp() {
@@ -62,39 +46,29 @@ public class History implements Serializable {
 		this.timestamp = timestamp;
 	}
 
+	public int getPhotoID() {
+		return photoID;
+	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + mountainID;
-		result = prime * result + photoID;
-		result = prime * result
-				+ ((timestamp == null) ? 0 : timestamp.hashCode());
-		result = prime * result + userID;
-		return result;
+	public void setPhotoID(int photoID) {
+		this.photoID = photoID;
+	}
+
+	public String getQuery() {
+		return query;
+	}
+
+	public void setQuery(String query) {
+		this.query = query;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		History other = (History) obj;
-		if (mountainID != other.mountainID)
-			return false;
-		if (photoID != other.photoID)
-			return false;
-		if (timestamp == null) {
-			if (other.timestamp != null)
-				return false;
-		} else if (!timestamp.equals(other.timestamp))
-			return false;
-		if (userID != other.userID)
-			return false;
-		return true;
+	public String toString() {
+		return "History [userEmail=" + userEmail + ", timestamp=" + timestamp
+				+ ", photoID=" + photoID + ", query=" + query + "]";
 	}
 }

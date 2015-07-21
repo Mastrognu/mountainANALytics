@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @NamedQuery(name = "findPhotoByUser", query = "SELECT p FROM Photo p WHERE p.userID = :userID")
 public class Photo {
 
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="photoID")private int photoID;
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="photoID") private int photoID;
 	private String mountainName;
 	private String url;
 	private int userID;

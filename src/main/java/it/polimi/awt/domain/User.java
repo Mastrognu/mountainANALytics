@@ -2,8 +2,6 @@ package it.polimi.awt.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -11,23 +9,33 @@ import javax.persistence.Table;
 @Table(name = "user")
 public class User {
 
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) private int userID;
+	@Id private String email;
 	@Column(nullable = false) private String name;
 
-	public User(String name) {
+	public User(String email, String name) {
+		super();
+		this.email = email;
 		this.name = name;
 	}
 
-	public int getUserID() {
-		return userID;
+	public String getEmail() {
+		return email;
 	}
-	public void setUserID(int userID) {
-		this.userID = userID;
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
-	}	
+	}
+
+	@Override
+	public String toString() {
+		return "User [email=" + email + ", name=" + name + "]";
+	}
 }
