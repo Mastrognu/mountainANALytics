@@ -15,6 +15,7 @@
 
 	<servlet-mapping>
 		<servlet-name>frontcontroller</servlet-name>
+		<url-pattern>*.css</url-pattern>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	

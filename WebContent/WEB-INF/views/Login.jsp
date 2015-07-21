@@ -9,7 +9,7 @@
 <title>Login</title>
 </head>
 <body>
-	<spring:url value="/login" var="validateLogin" />
+	<spring:url value="/search" var="validateLogin" />
 	<form action="${validateLogin}" method="post">
 		Email: <input type="text" name="email" required="" />
 		<input type="submit" value="send" /> 

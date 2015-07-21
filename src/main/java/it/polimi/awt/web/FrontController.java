@@ -1,10 +1,11 @@
 package it.polimi.awt.web;
 
 import it.polimi.awt.domain.GenericLocation;
+import it.polimi.awt.domain.Model;
 import it.polimi.awt.domain.Mountain;
 import it.polimi.awt.domain.Photo;
 import it.polimi.awt.domain.Province;
-import it.polimi.awt.domain.Model;
+import it.polimi.awt.domain.User;
 import it.polimi.awt.exceptions.NoCityNoMountainException;
 import it.polimi.awt.repository.IJpaGenericAccess;
 import it.polimi.awt.services.IGisService;
@@ -17,12 +18,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Controller
+@Scope("session")
 public class FrontController {
 	@Autowired
 	ISocialNetwork socialNetwork;
@@ -38,7 +45,7 @@ public class FrontController {
 	private static final int MAX_FROM = 31; // Limitazione di Gisgraphy
 	private static final int MAX_TO = 40; // Limitazione di Gisgraphy
 
-	@RequestMapping("/view")
+	@RequestMapping("/map")
 	public String addQueryFromForm(Model model) throws NoCityNoMountainException {
 		try {
 			/*
@@ -117,11 +124,26 @@ public class FrontController {
 
 	@RequestMapping(value = "/selection", method = RequestMethod.POST)
 	public String savePhotoFromMap(Photo photo) {
-		//TODO Problema con l'ID della photo passata come parametro
 		System.out.println(">Foto ricevuta: " + photo);
-		Photo photo2 = new Photo(666, photo.getMountainName(), photo.getUrl(), photo.getLatitude(), photo.getLongitude());
-		hibernateAccess.insertPhoto(photo2);
+		User currentUser = (User) getSession().getAttribute("currentUser");
+		Photo dbPhoto = new Photo(currentUser.getEmail(), photo.getMountainName(), photo.getUrl(), photo.getLatitude(), photo.getLongitude());
+		hibernateAccess.insertPhoto(dbPhoto);
 
 		return "saved";
+	}
+
+	@RequestMapping(value ="/search", method = RequestMethod.POST)
+	public String validateLogin(String email) {
+		User user = new User(email);
+		if (!hibernateAccess.checkUserExistence(user))
+			hibernateAccess.createUser(user);
+
+		getSession().setAttribute("currentUser", user);
+
+		return "Home";
+	}
+
+	private HttpSession getSession() {
+		return ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest().getSession();
 	}
 }
