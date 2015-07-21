@@ -3,6 +3,7 @@ package it.polimi.awt.repository;
 import it.polimi.awt.domain.Mountain;
 import it.polimi.awt.domain.Photo;
 import it.polimi.awt.domain.Province;
+import it.polimi.awt.domain.User;
 
 import java.util.List;
 
@@ -38,4 +39,10 @@ public interface IJpaGenericAccess {
 	 * @return
 	 */
 	public Mountain getMountain(String mountainName);
+
+	public boolean checkUserExistence(User user);
+	
+	public void createUser(User user);
+
+	public List<Photo> getPhoto(User user);
 }

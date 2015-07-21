@@ -13,7 +13,7 @@
 
 	<mvc:annotation-driven />
 
-	<mvc:view-controller path="/" view-name="HomePage" />
+	<mvc:view-controller path="/" view-name="Login" />
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

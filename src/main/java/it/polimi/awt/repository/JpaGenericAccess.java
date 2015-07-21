@@ -3,6 +3,7 @@ package it.polimi.awt.repository;
 import it.polimi.awt.domain.Mountain;
 import it.polimi.awt.domain.Photo;
 import it.polimi.awt.domain.Province;
+import it.polimi.awt.domain.User;
 
 import java.util.List;
 
@@ -11,8 +12,10 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
+@Transactional
 public class JpaGenericAccess implements IJpaGenericAccess {
 
 	@PersistenceContext
@@ -22,9 +25,9 @@ public class JpaGenericAccess implements IJpaGenericAccess {
 		em.persist(photo);
 	}
 
-	public List<Photo> getPhoto(int userID) {
+	public List<Photo> getPhoto(User user) {
 		TypedQuery<Photo> tq = em.createNamedQuery("findPhotoByUser", Photo.class);
-		List<Photo> list = tq.setParameter("userID", userID).getResultList();
+		List<Photo> list = tq.setParameter("userEmail", user.getEmail()).getResultList();
 		return list;
 	}
 
@@ -50,5 +53,13 @@ public class JpaGenericAccess implements IJpaGenericAccess {
 		if (list.size() > 0)
 			return list.get(0);
 		return null;
+	}
+
+	public boolean checkUserExistence(User user) {
+		return em.find(User.class, user.getEmail()) != null ? true : false;
+	}
+
+	public void createUser(User user) {
+		em.persist(user);
 	}
 }

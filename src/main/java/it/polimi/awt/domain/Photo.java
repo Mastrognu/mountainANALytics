@@ -10,21 +10,21 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "photo")
-@NamedQuery(name = "findPhotoByUser", query = "SELECT p FROM Photo p WHERE p.userID = :userID")
+@NamedQuery(name = "findPhotoByUser", query = "SELECT p FROM Photo p WHERE p.userEmail = :userEmail")
 public class Photo {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="photoID") private int photoID;
 	private String mountainName;
 	private String url;
-	private int userID;
+	private String userEmail;
 	private double latitude;
 	private double longitude;
 
 	public Photo() {
 	}
 
-	public Photo(int userID, String mountainName, String url, double latitude, double longitude) {
-		this.userID = userID;
+	public Photo(String userEmail, String mountainName, String url, double latitude, double longitude) {
+		this.userEmail = userEmail;
 		this.mountainName = mountainName;
 		this.url = url;
 		this.latitude = latitude;
@@ -55,11 +55,11 @@ public class Photo {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	public int getUserID() {
-		return userID;
+	public String getuserEmail() {
+		return userEmail;
 	}
-	public void setUserID(int userID) {
-		this.userID = userID;
+	public void setuserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
 	public String getMountainName() {
 		return mountainName;
@@ -71,7 +71,7 @@ public class Photo {
 	@Override
 	public String toString() {
 		return "Photo [photoID=" + photoID + ", mountainID=" + mountainName
-				+ ", url=" + url + ", userID=" + userID + ", latitude="
+				+ ", url=" + url + ", userID=" + userEmail + ", latitude="
 				+ latitude + ", longitude=" + longitude + "]";
 	}
 }

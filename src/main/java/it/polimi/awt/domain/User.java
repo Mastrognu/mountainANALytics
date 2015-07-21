@@ -1,6 +1,5 @@
 package it.polimi.awt.domain;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -10,12 +9,13 @@ import javax.persistence.Table;
 public class User {
 
 	@Id private String email;
-	@Column(nullable = false) private String name;
 
-	public User(String email, String name) {
+	public User() {
+	}
+
+	public User(String email) {
 		super();
 		this.email = email;
-		this.name = name;
 	}
 
 	public String getEmail() {
@@ -26,16 +26,8 @@ public class User {
 		this.email = email;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	@Override
 	public String toString() {
-		return "User [email=" + email + ", name=" + name + "]";
+		return "User [email=" + email + "]";
 	}
 }
