@@ -30,13 +30,13 @@
 				var map;
 				var markerCount = 0;
 				var markers = [
-		   			<c:forEach items="${request.response}" var="photo">
+		   			<c:forEach items="${model.response}" var="photo">
 						{name: "${photo.mountainName}", lat: ${photo.latitude}, lon: ${photo.longitude}, url: "${photo.url}"},
 					</c:forEach>
 				    ];
 
 				function initialize() {
-					var centerCoordinates = new google.maps.LatLng(${request.queryLatitude}, ${request.queryLongitude});
+					var centerCoordinates = new google.maps.LatLng(${model.queryLatitude}, ${model.queryLongitude});
 					var mapOptions = {
 						center: centerCoordinates,
 						zoom: 8,
@@ -49,11 +49,11 @@
 					      map: map,
 					      animation: google.maps.Animation.DROP,
 					      icon: 'https://google-developers.appspot.com/maps/documentation/javascript/examples/full/images/beachflag.png',
-					      title: '${request.queryName}',
+					      title: '${model.queryName}',
 					      zIndex: 10000
 					  });
 					var infowindow = new google.maps.InfoWindow({
-					      content: "<h1>"+'${request.queryName}'+"</h1>"
+					      content: "<h1>"+'${model.queryName}'+"</h1>"
 					  });
 					google.maps.event.addListener(centerMarker, 'click', function() {
 					    infowindow.open(map,centerMarker);
@@ -101,19 +101,19 @@
 		<div id="map-canvas" />
 
 <%--
-		Your query is: ${request.query}.
+		Your query is: ${model.query}.
 		<br />
 		<br />
-		<c:out value="${request.response}" />
+		<c:out value="${model.response}" />
 		<br />
 		<br />
-		<c:forTokens items="${request.response}" delims="," var="url">
+		<c:forTokens items="${model.response}" delims="," var="url">
 			<img src="<c:url value="${url}"/>" /><br /> 
 			<button data-url="${url}" onclick="clickButton(this)">Save</button>
 			<br />
 		</c:forTokens>
 
-	<c:forTokens items="${request.response}" delims="," var="url">
+	<c:forTokens items="${model.response}" delims="," var="url">
 			<spring:url value="/selection" var="saveUrlFromForm" /> 
 			<form action="${saveUrlFromForm}" method="post"> 
 				<input type="hidden" name="url" value="${url}" />

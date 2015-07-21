@@ -5,10 +5,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "photo")
+@NamedQuery(name = "findPhotoByUser", query = "SELECT p FROM Photo p WHERE p.userID = :userID")
 public class Photo {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="photoID")private int photoID;

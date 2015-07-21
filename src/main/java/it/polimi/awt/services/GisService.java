@@ -1,7 +1,7 @@
 package it.polimi.awt.services;
 
-import it.polimi.awt.domain.Mountain;
 import it.polimi.awt.domain.GenericLocation;
+import it.polimi.awt.domain.Mountain;
 import it.polimi.awt.exceptions.NoCityNoMountainException;
 import it.polimi.awt.utils.ConnectionUtils;
 import it.polimi.awt.utils.XMLUtils;

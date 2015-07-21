@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class FormController {
+public class FrontController {
 	@Autowired
 	ISocialNetwork socialNetwork;
 
@@ -116,7 +116,7 @@ public class FormController {
 	}
 
 	@RequestMapping(value = "/selection", method = RequestMethod.POST)
-	public String saveUrlFromForm(Photo photo) {
+	public String savePhotoFromMap(Photo photo) {
 		//TODO Problema con l'ID della photo passata come parametro
 		System.out.println(">Foto ricevuta: " + photo);
 		Photo photo2 = new Photo(666, photo.getMountainName(), photo.getUrl(), photo.getLatitude(), photo.getLongitude());

@@ -22,25 +22,31 @@ public class JpaGenericAccess implements IJpaGenericAccess {
 		em.persist(photo);
 	}
 
+	public List<Photo> getPhoto(int userID) {
+		TypedQuery<Photo> tq = em.createNamedQuery("findPhotoByUser", Photo.class);
+		List<Photo> list = tq.setParameter("userID", userID).getResultList();
+		return list;
+	}
+
 	public List<Mountain> getMultiMountain(Mountain mountain) {
-		TypedQuery<Mountain> tqm = em.createNamedQuery("findMountain", Mountain.class);
-		List<Mountain> list = tqm.setParameter("name", "%" + mountain.getName() + "%").getResultList();
+		TypedQuery<Mountain> tq = em.createNamedQuery("findMountain", Mountain.class);
+		List<Mountain> list = tq.setParameter("name", "%" + mountain.getName() + "%").getResultList();
 		for (Mountain m : list)
 			System.out.println("Mountain found in db = "+ m);
 		return list;
 	}
 
 	public Mountain getMountain(String mountainName) {
-		TypedQuery<Mountain> tqp = em.createNamedQuery("findMountain", Mountain.class);
-		List<Mountain> list = tqp.setParameter("name", "%" + mountainName + "%").getResultList();
+		TypedQuery<Mountain> tq = em.createNamedQuery("findMountain", Mountain.class);
+		List<Mountain> list = tq.setParameter("name", "%" + mountainName + "%").getResultList();
 		if (list.size() > 0)
 			return list.get(0);
 		return null;
 	}
 
 	public Province getProvince(String provinceName) {
-		TypedQuery<Province> tqp = em.createNamedQuery("findProvince", Province.class);
-		List<Province> list = tqp.setParameter("name", "%" + provinceName + "%").getResultList();
+		TypedQuery<Province> tq = em.createNamedQuery("findProvince", Province.class);
+		List<Province> list = tq.setParameter("name", "%" + provinceName + "%").getResultList();
 		if (list.size() > 0)
 			return list.get(0);
 		return null;
