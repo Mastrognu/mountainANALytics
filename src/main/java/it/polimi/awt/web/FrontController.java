@@ -64,6 +64,8 @@ public class FrontController {
 					location = new GenericLocation(mountain.getName(), mountain.getLatitude(), mountain.getLongitude());
 				} else {
 					location = gisService.getCoordinatesFromLocation(model.getQuery(), false);
+					if (location == null)
+						return "400BadRequest";
 				}
 			}
 
@@ -103,8 +105,8 @@ public class FrontController {
 							photo.setLatitude(map.get(Coordinates.LATITUDE));
 							photo.setLongitude(map.get(Coordinates.LONGITUDE));
 						} else {
-							photo.setLatitude(m.getLatitude() + 0.06 * new Random().nextFloat() - 0.03);
-							photo.setLongitude(m.getLongitude()  + 0.06 * new Random().nextFloat() - 0.03);
+							photo.setLatitude(m.getLatitude() + nextDouble());
+							photo.setLongitude(m.getLongitude()  + nextDouble());
 						}
 						System.out.println(">Photo: " + photo.toString());
 						photoList.add(photo);
@@ -127,12 +129,12 @@ public class FrontController {
 		System.out.println(">Foto ricevuta: " + photo);
 		User currentUser = (User) getSession().getAttribute("currentUser");
 		Photo dbPhoto = new Photo(currentUser.getEmail(), photo.getMountainName(), photo.getUrl(), photo.getLatitude(), photo.getLongitude());
-		hibernateAccess.insertPhoto(dbPhoto);
+		hibernateAccess.insertPhoto(dbPhoto, currentUser);
 
 		return "saved";
 	}
 
-	@RequestMapping(value ="/search", method = RequestMethod.POST)
+	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public String validateLogin(String email) {
 		User user = new User(email);
 		if (!hibernateAccess.checkUserExistence(user))
@@ -141,6 +143,17 @@ public class FrontController {
 		getSession().setAttribute("currentUser", user);
 
 		return "Home";
+	}
+
+	@RequestMapping(value = "/photos", method = RequestMethod.POST)
+	public String findPhotoByUser(Model model) {
+		List<Photo> list = hibernateAccess.getPhotoByUser((User) getSession().getAttribute("currentUser"));
+		model.addToResponse(list);
+		return "PhotoList";
+	}
+
+	private double nextDouble(){
+		return 0.06 * new Random().nextFloat() - 0.03;
 	}
 
 	private HttpSession getSession() {

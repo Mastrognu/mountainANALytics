@@ -13,7 +13,7 @@ public interface IJpaGenericAccess {
 	 *
 	 * @param photo The Photo to insert into the database
 	 */
-	public void insertPhoto(Photo photo);
+	public void insertPhoto(Photo photo, User user);
 
 	/**
 	 * This method is used to know if a Mountain is part of the subset we have
@@ -44,5 +44,5 @@ public interface IJpaGenericAccess {
 	
 	public void createUser(User user);
 
-	public List<Photo> getPhoto(User user);
+	public List<Photo> getPhotoByUser(User user);
 }

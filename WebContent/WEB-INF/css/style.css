@@ -10,6 +10,7 @@ body                 { background:url(http://scotch.io/wp-content/uploads/2014/0
   display:block; 
   background:#FFF;
   padding:10px 50px 50px;
+  text-align:center; 
 }
 h2       { 
   text-align:center; 

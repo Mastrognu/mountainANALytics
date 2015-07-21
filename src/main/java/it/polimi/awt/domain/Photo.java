@@ -5,12 +5,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "photo")
-@NamedQuery(name = "findPhotoByUser", query = "SELECT p FROM Photo p WHERE p.userEmail = :userEmail")
+@NamedQueries({
+	@NamedQuery(name = "findPhotoByUser", query = "SELECT p FROM Photo p WHERE p.userEmail = :userEmail"),
+	@NamedQuery(name = "findPhoto", query = "SELECT p FROM Photo p WHERE p.userEmail = :userEmail AND p.url = :url")})
 public class Photo {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="photoID") private int photoID;
@@ -70,7 +73,7 @@ public class Photo {
 
 	@Override
 	public String toString() {
-		return "Photo [photoID=" + photoID + ", mountainID=" + mountainName
+		return "Photo [photoID=" + photoID + ", mountainName=" + mountainName
 				+ ", url=" + url + ", userID=" + userEmail + ", latitude="
 				+ latitude + ", longitude=" + longitude + "]";
 	}

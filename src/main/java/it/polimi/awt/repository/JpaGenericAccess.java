@@ -21,11 +21,16 @@ public class JpaGenericAccess implements IJpaGenericAccess {
 	@PersistenceContext
 	private EntityManager em;
 
-	public void insertPhoto(Photo photo) {
-		em.persist(photo);
+	public void insertPhoto(Photo photo, User user) {
+		TypedQuery<Photo> tq = em.createNamedQuery("findPhoto", Photo.class);
+		List<Photo> list = tq.setParameter("userEmail", user.getEmail()).setParameter("url", photo.getUrl()).getResultList();
+		if (list.size() == 0) {
+			em.persist(photo);
+			System.out.println("Photo saved!");
+		}			
 	}
 
-	public List<Photo> getPhoto(User user) {
+	public List<Photo> getPhotoByUser(User user) {
 		TypedQuery<Photo> tq = em.createNamedQuery("findPhotoByUser", Photo.class);
 		List<Photo> list = tq.setParameter("userEmail", user.getEmail()).getResultList();
 		return list;

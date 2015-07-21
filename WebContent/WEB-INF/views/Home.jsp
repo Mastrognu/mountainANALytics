@@ -7,46 +7,44 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Insert a query</title>
-<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/style.css"
+	rel="stylesheet" type="text/css">
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
 
-<div class="container">
-  
-  <h2>Search for Alps locality<small>Inputs</small></h2>
- 
- <spring:url value="/map" var="addQueryFromForm" /> 
-  <form action="${addQueryFromForm}" method="post">>
-    
-    <div class="group">      
-      <input type="text" name="query" required="" />
-      <span class="highlight"></span>
-      <span class="bar"></span>
-      <label>Search</label>
-    </div>
-      
-    <div class="group">      
-      <input type="submit" value="send" /> 
-      <span class="highlight"></span>
-      <span class="bar"></span>
-      <label>Send</label>
-    </div>
-    
-  </form>
-      
-  <p class="footer">
-    a <a href="http://scotch.io/tutorials/css/google-material-design-input-boxes-in-css3" target="_blank">tutorial</a> by <a href="http://scotch.io" target="_blank">scotch.io</a>
-  </p>
-  
-</div>
+	<div class="container">
+		<h1>Search for Alps localities</h2>
 
+		<spring:url value="/map" var="addQueryFromForm" />
+		<form action="${addQueryFromForm}" method="post">
+			<div class="group">
+				<input type="text" name="query" required="" />
+				<span class="highlight"></span>
+				<span class="bar"></span> <label>Search</label>
+			</div>
 
-<%-- 	<spring:url value="/map" var="addQueryFromForm" />
-	<form action="${addQueryFromForm}" method="post">
-		Query: <input type="text" name="query" required="" /><br />
-		<input type="submit" value="send" /> 
-	</form> --%>
+			<div class="group">
+				<input type="submit" value="Search" />
+				<span class="highlight"></span>
+				<span class="bar"></span>
+
+				<input type="reset" value="Clear" />
+				<span class="highlight"></span>
+				<span class="bar"></span>
+			</div>
+		</form>
+
+		<spring:url value="/photos" var="findPhotoByUser" />
+		<form action="${findPhotoByUser}" method="post">
+			<div class="group">
+				<input type="submit" value="Retrieve your saved photos" />
+				<span class="highlight"></span>
+				<span class="bar"></span>
+			</div>
+		</form>
+	</div>
+
 </body>
 </html>

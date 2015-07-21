@@ -17,11 +17,12 @@
 			<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
 			<script type="text/javascript">
 			function clickButton(button){
-				alert(name + " " + url);
 				var name = $(button).data("name");
 				var url = $(button).data("url");
 				var lat = $(button).data("lat");
 				var lon = $(button).data("lon");
+				alert("Photo of " + name + " saved!");
+				$(button).prop('disabled', true);
 				$.post("http://localhost:8080/MountainANALytics/selection", {mountainName: name, url: url, latitude: lat, longitude: lon});
 				<!-- alert (url); -->
 			}
@@ -83,8 +84,7 @@
 			    //Gives each marker an Id for the on click
 			    markerCount++;
 
-			    //htmlMarkupForInfoWindow = "<img src=\""+image+"\" width=\"600px\" height=\"600px\"><br><button data-url=\"${url}\" onclick=\"clickButton(this)\">Save</button>"";
-				var htmlMarkupForInfoWindow = "<center><h1>"+name+"</h1></center><br><img src="+url+" width=\"400px\" height=\"400px\"><br><button data-name=\""+name+"\" data-url=\""+url+"\" data-lat=\""+lat+"\" data-lon=\""+lon+"\" onclick=\"clickButton(this)\">Save</button>";
+				var htmlMarkupForInfoWindow = "<center><h1>"+name+"</h1></center><br><img src="+url+" ><br><button data-name=\""+name+"\" data-url=\""+url+"\" data-lat=\""+lat+"\" data-lon=\""+lon+"\" onclick=\"clickButton(this)\">Save</button>";
 			    //Creates the event listener for clicking the marker
 			    //and places the marker on the map
 			    google.maps.event.addListener(marker, 'click', (function(marker, markerCount) {
@@ -96,32 +96,8 @@
 			}
 		}());
 		</script>
-		</head>
-		<body>
+	</head>
+	<body>
 		<div id="map-canvas" />
-
-<%--
-		Your query is: ${model.query}.
-		<br />
-		<br />
-		<c:out value="${model.response}" />
-		<br />
-		<br />
-		<c:forTokens items="${model.response}" delims="," var="url">
-			<img src="<c:url value="${url}"/>" /><br /> 
-			<button data-url="${url}" onclick="clickButton(this)">Save</button>
-			<br />
-		</c:forTokens>
-
-	<c:forTokens items="${model.response}" delims="," var="url">
-			<spring:url value="/selection" var="saveUrlFromForm" /> 
-			<form action="${saveUrlFromForm}" method="post"> 
-				<input type="hidden" name="url" value="${url}" />
-				<br />  
-				<img src="<c:url value="${url}"/>" /><br /> 
-				<input type="submit" value="Save" /> 
-			</form> 
-			<br />
-		</c:forTokens> --%>
 	</body>
 </html>							

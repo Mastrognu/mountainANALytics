@@ -36,7 +36,7 @@ public class GisService implements IGisService {
 			return respMountain;
 		else if (respCity != null)
 			return respCity;
-		else throw new NoCityNoMountainException();
+		return null;
 	}
 
 	public List<Mountain> getNearbyPlacesFromCoordinates(double lat, double lng, int radius, int from, int to) throws IOException {
