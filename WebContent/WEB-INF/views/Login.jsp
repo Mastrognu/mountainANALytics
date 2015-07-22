@@ -6,13 +6,24 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link href="${pageContext.request.contextPath}/css/home_style.css" rel="stylesheet" type="text/css">
 <title>Login</title>
 </head>
 <body>
-	<spring:url value="/search" var="validateLogin" />
-	<form action="${validateLogin}" method="post">
-		Email: <input type="text" name="email" required="" />
-		<input type="submit" value="send" /> 
-	</form>
+	<div class="container">
+
+		<spring:url value="/search" var="validateLogin" />
+		<form action="${validateLogin}" method="post">
+		<div class="group">
+			<input type="text" name="email" required="" />
+			<span class="highlight"></span>
+			<span class="bar"></span> <label>	Insert you username</label>
+
+			<input type="submit" value="Submit" />
+			<span class="highlight"></span>
+			<span class="bar"></span>
+		</div>
+		</form>
+	</div>
 </body>
 </html>

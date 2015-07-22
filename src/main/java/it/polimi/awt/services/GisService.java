@@ -2,7 +2,6 @@ package it.polimi.awt.services;
 
 import it.polimi.awt.domain.GenericLocation;
 import it.polimi.awt.domain.Mountain;
-import it.polimi.awt.exceptions.NoCityNoMountainException;
 import it.polimi.awt.utils.ConnectionUtils;
 import it.polimi.awt.utils.XMLUtils;
 
@@ -17,7 +16,7 @@ import org.xml.sax.SAXException;
 @Service
 public class GisService implements IGisService {
 
-	public GenericLocation getCoordinatesFromLocation(String text, boolean provinceFlag) throws IOException, NoCityNoMountainException {
+	public GenericLocation getCoordinatesFromLocation(String text, boolean provinceFlag) throws IOException {
 		GenericLocation respMountain = null;
 		if(!provinceFlag) {
 			respMountain = getResponseConnection(

@@ -6,7 +6,6 @@ import it.polimi.awt.domain.Mountain;
 import it.polimi.awt.domain.Photo;
 import it.polimi.awt.domain.Province;
 import it.polimi.awt.domain.User;
-import it.polimi.awt.exceptions.NoCityNoMountainException;
 import it.polimi.awt.repository.IJpaGenericAccess;
 import it.polimi.awt.services.IGisService;
 import it.polimi.awt.services.ISocialNetwork;
@@ -46,7 +45,7 @@ public class FrontController {
 	private static final int MAX_TO = 40; // Limitazione di Gisgraphy
 
 	@RequestMapping("/map")
-	public String addQueryFromForm(Model model) throws NoCityNoMountainException {
+	public String addQueryFromForm(Model model) {
 		try {
 			/*
 			 * Se la ricerca è basata sul nome di una città capoluogo di provincia,
@@ -114,7 +113,7 @@ public class FrontController {
 					model.addToResponse(photoList);
 				}
 			} else {
-				//TODO Che famo?
+				return "400BadRequest";
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -153,7 +152,7 @@ public class FrontController {
 	}
 
 	private double nextDouble(){
-		return 0.06 * new Random().nextFloat() - 0.03;
+		return 0.06 * new Random().nextDouble() - 0.03;
 	}
 
 	private HttpSession getSession() {

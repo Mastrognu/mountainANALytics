@@ -1,0 +1,18 @@
+body {
+	background: url(http://eastsbeach.com.au/assets/Uploads/_resampled/SetWidth2000-Kiama-Events-Easts-Beach-PB.jpg);
+    background-repeat: no-repeat;
+}
+h1 {
+	color: #FFFFFF;
+	text-align: center;
+	text-transform: uppercase;
+}
+h2 {
+	color: #FFFFFF;
+	text-align: center;
+	text-transform: capitalize;
+}
+a {
+    color: #FFFFFF;
+    text-transform: capitalize;
+}

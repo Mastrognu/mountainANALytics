@@ -7,16 +7,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Insert a query</title>
-<link href="${pageContext.request.contextPath}/css/style.css"
+<link href="${pageContext.request.contextPath}/css/home_style.css"
 	rel="stylesheet" type="text/css">
-<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/image/favicon.ico" type="image/x-icon">
+<link rel="icon" href="${pageContext.request.contextPath}/image/favicon.ico" type="image/x-icon">
 </head>
 <body>
 
 	<div class="container">
+		<img src="http://cliparts.co/cliparts/kTM/n87/kTMn87bEc.png" class="center" width="100%">
+		<br />
 		<h1>Search for Alps localities</h2>
-
+		<br />
 		<spring:url value="/map" var="addQueryFromForm" />
 		<form action="${addQueryFromForm}" method="post">
 			<div class="group">

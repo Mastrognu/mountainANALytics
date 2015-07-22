@@ -1,8 +1,7 @@
 package it.polimi.awt.services;
 
-import it.polimi.awt.domain.Mountain;
 import it.polimi.awt.domain.GenericLocation;
-import it.polimi.awt.exceptions.NoCityNoMountainException;
+import it.polimi.awt.domain.Mountain;
 
 import java.io.IOException;
 import java.util.List;
@@ -17,7 +16,7 @@ public interface IGisService {
 	 * @throws IOException
 	 * @throws NoCityNoMountainException
 	 */
-	public GenericLocation getCoordinatesFromLocation(String text, boolean provinceFlag) throws IOException, NoCityNoMountainException;
+	public GenericLocation getCoordinatesFromLocation(String text, boolean provinceFlag) throws IOException;
 	/**
 	 *
 	 * @param lat Latitude of the place (in decimal)
