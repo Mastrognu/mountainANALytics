@@ -1,7 +1,10 @@
 package it.polimi.awt.domain;
 
+import java.util.Collection;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -9,6 +12,8 @@ import javax.persistence.Table;
 public class User {
 
 	@Id private String email;
+//	@OneToMany(mappedBy="user")
+//	private Collection<Photo> photos;
 
 	public User() {
 	}

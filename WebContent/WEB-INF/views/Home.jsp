@@ -9,12 +9,6 @@
 <title>Insert a query</title>
 <link href="${pageContext.request.contextPath}/css/home_style.css"
 	rel="stylesheet" type="text/css">
-<link rel="shortcut icon"
-	href="${pageContext.request.contextPath}/image/favicon.ico"
-	type="image/x-icon">
-<link rel="icon"
-	href="${pageContext.request.contextPath}/image/favicon.ico"
-	type="image/x-icon">
 </head>
 <body>
 
