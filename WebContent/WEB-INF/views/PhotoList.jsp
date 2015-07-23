@@ -9,7 +9,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<center><h1>Your saved photos</h1></center>
+	<br>
 	<table>
 		<c:forEach items="${model.response}" var="photo">
 			<tr>
@@ -17,6 +18,7 @@
 			</tr>
 		</c:forEach>
 	</table>
-
+	<br>
+	<a href="javascript:history.back()"><h2>Go Back</h2></a>
 </body>
 </html>
