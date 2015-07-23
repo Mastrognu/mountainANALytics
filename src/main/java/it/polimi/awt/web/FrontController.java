@@ -63,7 +63,7 @@ public class FrontController {
 					Mountain mountain = hibernateAccess.getMountain(model.getQuery());
 					location = new GenericLocation(mountain.getName(), mountain.getLatitude(), mountain.getLongitude());
 				} else {
-					location = gisService.getCoordinatesFromLocation(model.getQuery(), false);
+					location = gisService.getCoordinatesFromLocation(model.getQuery());
 					if (location == null)
 						return "400BadRequest";
 				}

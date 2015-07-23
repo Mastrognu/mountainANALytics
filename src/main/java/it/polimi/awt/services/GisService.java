@@ -16,14 +16,11 @@ import org.xml.sax.SAXException;
 @Service
 public class GisService implements IGisService {
 
-	public GenericLocation getCoordinatesFromLocation(String text, boolean provinceFlag) throws IOException {
-		GenericLocation respMountain = null;
-		if(!provinceFlag) {
-			respMountain = getResponseConnection(
+	public GenericLocation getCoordinatesFromLocation(String text) throws IOException {
+		GenericLocation respMountain  = getResponseConnection(
 					"http://services.gisgraphy.com/fulltext/fulltextsearch?q="
 							+ text.toLowerCase().replace(" ", "%20")
 							+ "&country=IT" + "&placetype=Mountain");
-		}
 		GenericLocation respCity = getResponseConnection(
 				"http://services.gisgraphy.com/fulltext/fulltextsearch?q="
 						+ text.toLowerCase().replace(" ", "%20")

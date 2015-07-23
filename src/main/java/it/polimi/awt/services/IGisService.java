@@ -11,12 +11,11 @@ public interface IGisService {
 	/**
 	 *
 	 * @param text The query searched by the user
-	 * @param provinceFlag true if the user searched a city which is an Italian province, false otherwise
 	 * @return A list of Response from GisGraphy
 	 * @throws IOException
 	 * @throws NoCityNoMountainException
 	 */
-	public GenericLocation getCoordinatesFromLocation(String text, boolean provinceFlag) throws IOException;
+	public GenericLocation getCoordinatesFromLocation(String text) throws IOException;
 	/**
 	 *
 	 * @param lat Latitude of the place (in decimal)
