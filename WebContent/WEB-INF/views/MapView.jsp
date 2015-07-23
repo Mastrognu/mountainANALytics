@@ -23,7 +23,7 @@
 				var lon = $(button).data("lon");
 				alert("Photo of " + name + " saved!");
 				$(button).prop('disabled', true);
-				$.post("http://localhost:8080/MountainANALytics/selection", {mountainName: name, url: url, latitude: lat, longitude: lon});
+				$.post("http://localhost:8080/MountainPhotoCollection/selection", {mountainName: name, url: url, latitude: lat, longitude: lon});
 				<!-- alert (url); -->
 			}
 
