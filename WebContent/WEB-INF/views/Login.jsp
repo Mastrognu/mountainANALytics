@@ -11,18 +11,17 @@
 </head>
 <body>
 	<div class="container">
-
+		<img src="http://cliparts.co/cliparts/kTM/n87/kTMn87bEc.png" width="100%"> <br />
+		<h1 class="small">Welcome to</h1><h1>mountain search</h1>
+		<br />
 		<spring:url value="/search" var="validateLogin" />
 		<form action="${validateLogin}" method="post">
-		<div class="group">
-			<input type="text" name="email" required="" />
-			<span class="highlight"></span>
-			<span class="bar"></span> <label>	Insert you username</label>
-
-			<input type="submit" value="Submit" />
-			<span class="highlight"></span>
-			<span class="bar"></span>
-		</div>
+			<div class="group">
+				<input type="text" name="email" required="" />
+				<span class="highlight"></span> <span class="bar"></span>
+				<label>Insert you username</label> <input type="submit" value="Submit" />
+				<span class="highlight"></span> <span class="bar"></span>
+			</div>
 		</form>
 	</div>
 </body>

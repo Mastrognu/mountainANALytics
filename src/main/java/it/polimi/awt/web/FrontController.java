@@ -46,6 +46,7 @@ public class FrontController {
 
 	@RequestMapping("/map")
 	public String addQueryFromForm(Model model) {
+		long start = System.currentTimeMillis( );
 		try {
 			/*
 			 * Se la ricerca è basata sul nome di una città capoluogo di provincia,
@@ -98,8 +99,7 @@ public class FrontController {
 						Photo photo = new Photo();
 						photo.setMountainName(m.getName());
 						photo.setUrl(url);
-						//TODO photo.setUserID(userID);
-						// Se la foto ha gli attributi latitude e longitude
+						// Se la foto ha gli attributi Exif latitude e longitude
 						if (map.size() > 0) {
 							photo.setLatitude(map.get(Coordinates.LATITUDE));
 							photo.setLongitude(map.get(Coordinates.LONGITUDE));
@@ -119,7 +119,8 @@ public class FrontController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("--------- END OF STUFF ON CONTROLLER ------------------");
+		long diff = System.currentTimeMillis( ) - start;
+		System.out.println("------------- Computation done in:" + diff + " ms ------------------");
 		return "MapView";
 	}
 

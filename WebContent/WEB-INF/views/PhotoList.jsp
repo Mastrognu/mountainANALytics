@@ -13,7 +13,7 @@
 	<table>
 		<c:forEach items="${model.response}" var="photo">
 			<tr>
-				<td>"${photo.mountainName}" : <img src="${photo.url}" /></td>
+				<td align="middle"><h3>${photo.mountainName}:</h3></td><td> <img src="${photo.url}" /></td>
 			</tr>
 		</c:forEach>
 	</table>
